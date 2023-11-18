@@ -7,17 +7,10 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 1
     path: Assets/Scenes/Scene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
-    Niantic.Lightship.AR.LightshipSettings: {fileID: 11400000, guid: cd8ed86613ca0a74fb72db46b7f5f0a6,
-      type: 2}
-    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 01ff194952e101343af1e3574d65602e,
-      type: 2}
-    UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 5578502375225a6418c7312b685dca1e,
-      type: 2}
-    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 9a541a239a60c644d88d29eda7cca299,
-      type: 2}
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 2762fc56053578148a7efd4b3ed211b1,
-      type: 2}
-    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: aadc4f916d57ceb44929d37c144dff4f,
-      type: 2}
+    Niantic.Lightship.AR.LightshipSettings: {fileID: 11400000, guid: 05b0489c7d3114fe3b5a5321c06a66dd, type: 2}
+    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 0ba5772da672041b0b49b09b47e32b89, type: 2}
+    UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: bfd7813fb960643da9fd42f1589db513, type: 2}
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 217d86e680eb34b97bb0bb2a6ec7bfac, type: 2}
+    com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 3650a5c04e3b9df439009fce0ecd1e2c, type: 2}
