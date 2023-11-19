@@ -1083,11 +1083,19 @@ MonoBehaviour:
   musicSource: {fileID: 1542449355}
   ambSource: {fileID: 1542449354}
   mixer: {fileID: 24100000, guid: fbf0ac9f190fb3e448002736bcdca631, type: 2}
+  cam: {fileID: 260811383}
   controlsEnabled: 1
   snowballAmmo: 0
   maxSnowballs: 20
   snowballCount: 0
   snowballSpawnerList: []
+  enemyPrefab: {fileID: 4692669073381189936, guid: 1c8ed9c2a6f83964b8ba3bff818053c3, type: 3}
+  enemyList: []
+  enemySpawnTimeMin: 5
+  enemySpawnTimeMax: 10
+  enemySpawnRangeMin: 5
+  enemySpawnRangeMax: 10
+  maxEnemies: 3
 --- !u!82 &1542449354
 AudioSource:
   m_ObjectHideFlags: 0

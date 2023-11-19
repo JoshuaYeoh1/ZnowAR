@@ -12,6 +12,7 @@ TagManager:
   - Pickup
   - SnowballSpawner
   - Snowball
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -43,7 +44,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - XR Simulation
   - 
   m_SortingLayers:
   - name: Default
