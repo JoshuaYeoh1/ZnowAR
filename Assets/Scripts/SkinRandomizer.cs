@@ -4,31 +4,21 @@ using UnityEngine;
 
 public class SkinRandomizer : MonoBehaviour
 {
-    public bool enable=true;
-    public GameObject[] skins;
-    int skin;
+    public List<GameObject> skinList = new List<GameObject>();
+    GameObject chosenSkin;
 
     void Awake()
     {
-        if(enable)
-        {
-            skin = Random.Range(0,skins.Length);
+        chosenSkin = skinList[Random.Range(0,skinList.Count)];
 
-            for(int i=0; i<skins.Length; i++)
+        for(int i=skinList.Count-1; i>=0; i--)
+        {
+            if(skinList[i]!=chosenSkin)
             {
-                if(i!=skin) skins[i].SetActive(false);
-                else skins[i].SetActive(true);
+                Destroy(skinList[i]);
+                skinList.Remove(skinList[i]);
             }
-
-            //deleteUnused();
-        }
-    }
-
-    void deleteUnused()
-    {
-        for(int i=0; i<skins.Length; i++)
-        {
-            if(i!=skin) Destroy(skins[i]);
+            else skinList[i].SetActive(true);
         }
     }
 }

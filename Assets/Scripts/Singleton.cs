@@ -24,6 +24,8 @@ public class Singleton : MonoBehaviour
         LoadVolume();
         //awakeAudio();
         //awakeTransition();
+
+        StartCoroutine(spawningSnowballs());
     }
 
     // void Update()
@@ -177,8 +179,21 @@ public class Singleton : MonoBehaviour
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
 
-    [Header("Player")]
+    [Header("Game")]
     public bool controlsEnabled=true;
+    public int snowballAmmo, maxSnowballs=20, snowballCount;
+    public List<GameObject> snowballSpawnerList = new List<GameObject>();
+
+    IEnumerator spawningSnowballs()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(Random.Range(.1f,3f));
+
+            if(snowballCount<maxSnowballs && snowballSpawnerList.Count>0)
+            snowballSpawnerList[Random.Range(0,snowballSpawnerList.Count)].GetComponent<SnowballSpawner>().spawnSnowball();
+        }
+    }
 
     // public void playerDie()
     // {

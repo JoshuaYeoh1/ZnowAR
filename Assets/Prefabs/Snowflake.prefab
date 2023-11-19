@@ -223,8 +223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf9c7da8eb9a046419d6aaf7aa3702a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enable: 1
-  skins:
+  skinList:
   - {fileID: 8802432672123189548}
   - {fileID: 6347506329203955824}
   - {fileID: 8574600676631385972}
@@ -249,9 +248,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fcfec44f619132448afe13d65639d8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomTranslateX: 0
-  randomTranslateY: 0
-  randomTranslateZ: 0
+  randomTranslateX: 1
+  randomTranslateY: 1
+  randomTranslateZ: 1
   minTranslate: -0.1
   maxTranslate: 0.1
   randomRotateX: 1

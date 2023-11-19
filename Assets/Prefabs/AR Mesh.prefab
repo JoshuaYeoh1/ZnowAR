@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 6210215666462746075}
   - component: {fileID: -4322430223095565126}
   - component: {fileID: -5273442874158765593}
-  - component: {fileID: -3816396871432227840}
   - component: {fileID: 6891583375259448139}
   m_Layer: 10
   m_Name: AR Mesh
@@ -131,15 +130,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b3f815f6613afd4db3e54c06e107d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshAnalyser: {fileID: 6210215666462746075}
   minVertsForSpawn: 30
   spawnObjects:
-  - {fileID: 355795130544365257, guid: 510f33c82d5e42b4aa62c799f158c700, type: 3}
-  - {fileID: 5637682412239819469, guid: 1cf3e00130376f24995a5a52e409f6b5, type: 3}
-  - {fileID: 6114169066803635775, guid: f65885f30cb50fc40bc4bfc05d262d42, type: 3}
-  - {fileID: 4762739020106591169, guid: 92813dff9f318f3499490189653f9577, type: 3}
   - {fileID: 6393777048824257983, guid: c253a10a626627d47bf48a983f0f0e20, type: 3}
   spawnLikelyHood: 50
+  ignoreGround: 0
 --- !u!114 &-5273442874158765593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,27 +147,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b3f815f6613afd4db3e54c06e107d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshAnalyser: {fileID: 6210215666462746075}
   minVertsForSpawn: 1
   spawnObjects:
-  - {fileID: 3954930375721700351, guid: 49e1d07d2658ccb459cef21dcabda211, type: 3}
+  - {fileID: 8787246005411230241, guid: 8cf67692203592c49a78d86949668025, type: 3}
   spawnLikelyHood: 100
---- !u!114 &-3816396871432227840
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6989611079791121937}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dec6912742a2dfd4589ae717d814f678, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  groundThreshold: 0
-  avgNormal: 0
-  minVerts: 10
-  isGround: 0
+  ignoreGround: 0
 --- !u!114 &6891583375259448139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,8 +164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b3f815f6613afd4db3e54c06e107d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meshAnalyser: {fileID: -3816396871432227840}
   minVertsForSpawn: 1
   spawnObjects:
   - {fileID: 2644626583104067039, guid: ed4976a1ffa678b46b67631115c81db5, type: 3}
   spawnLikelyHood: 100
+  ignoreGround: 1

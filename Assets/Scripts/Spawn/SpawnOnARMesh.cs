@@ -6,18 +6,19 @@ using Random = UnityEngine.Random;
 
 public class SpawnOnARMesh : MonoBehaviour
 {
-    public MeshAnalyser meshAnalyser;
+    MeshAnalyser meshAnalyser;
     Mesh arMesh; 
 
     public float minVertsForSpawn;
 
     public List<GameObject> spawnObjects = new List<GameObject>();
-    public int spawnLikelyHood = 33; 
+    public int spawnLikelyHood = 33;
+    public bool ignoreGround;
 
     void Start()
     {
         if(spawnLikelyHood == 0) return;
-        //meshAnalyser = GetComponent<MeshAnalyser>();
+        meshAnalyser = GetComponent<MeshAnalyser>();
         meshAnalyser.analysisDone += StartSpawning;
     }
 
@@ -29,7 +30,10 @@ public class SpawnOnARMesh : MonoBehaviour
 
         if (spawnLikely != 0) return;
 
-        if (arMesh.vertexCount > minVertsForSpawn && meshAnalyser.IsGround) InstantiateObject(GetRandomObject());
+        if (arMesh.vertexCount > minVertsForSpawn)
+        {
+            if(ignoreGround || meshAnalyser.IsGround) InstantiateObject(GetRandomObject());
+        }
     }
 
     GameObject GetRandomObject()
@@ -41,11 +45,11 @@ public class SpawnOnARMesh : MonoBehaviour
     {
         GameObject spawned = Instantiate(obj, GetRandomVector(), Quaternion.identity);
 
-        Vector3 oriScale = spawned.transform.localScale;
+        Vector3 defScale = spawned.transform.localScale;
 
         spawned.transform.localScale = Vector3.zero;
 
-        LeanTween.scale(spawned, oriScale, .5f).setEaseOutBack();
+        LeanTween.scale(spawned, defScale, .5f).setEaseOutBack();
     }
 
     Vector3 GetRandomVector()
