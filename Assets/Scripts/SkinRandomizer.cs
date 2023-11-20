@@ -5,7 +5,7 @@ using UnityEngine;
 public class SkinRandomizer : MonoBehaviour
 {
     public List<GameObject> skinList = new List<GameObject>();
-    GameObject chosenSkin;
+    [HideInInspector] public GameObject chosenSkin;
 
     void Awake()
     {

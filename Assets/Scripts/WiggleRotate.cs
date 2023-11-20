@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class WiggleRotate : MonoBehaviour
 {
-    public float frequency, magnitude;
-    float angleX, angleY;
-    public bool wiggle;
-    float seed;
+    public float frequency=.5f, magnitude=5;
+    public bool wiggle=true, doX=true, doY=true, doZ=true;
+    float seed, x, y, z;
 
     void Start()
     {
-        seed = Random.value;
+        seed = Random.value*9999;
     }
 
     void LateUpdate()
     {
         if(wiggle)
         {
-            angleX = Mathf.PerlinNoise(seed, Time.time * frequency) * 2 - 1;
-            angleY = Mathf.PerlinNoise(seed+1, Time.time * frequency) * 2 - 1;
+            if(doX) x = Mathf.PerlinNoise(seed, Time.time * frequency) * 2 - 1;
+            if(doY) y = Mathf.PerlinNoise(seed+1, Time.time * frequency) * 2 - 1;
+            if(doZ) z = Mathf.PerlinNoise(seed+2, Time.time * frequency) * 2 - 1;
 
-            transform.localEulerAngles = new Vector3(angleX,angleY,0) * magnitude;
+            transform.localEulerAngles = new Vector3(x,y,z) * magnitude;
         }
     }
 

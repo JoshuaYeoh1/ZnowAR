@@ -49,7 +49,7 @@ public class SpawnOnARMesh : MonoBehaviour
 
         spawned.transform.localScale = Vector3.zero;
 
-        LeanTween.scale(spawned, defScale, .5f).setEaseOutBack();
+        LeanTween.scale(spawned, defScale, Random.Range(.5f, 1)).setEaseOutBack();
     }
 
     Vector3 GetRandomVector()

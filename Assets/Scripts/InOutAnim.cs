@@ -1,16 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 public class InOutAnim : MonoBehaviour
 {
     RectTransform rt;
-    Image img;
-    // Image[] img2;
-    // TextMeshProUGUI tmp;
-    // TextMeshProUGUI[] tmp2;
 
     [Header("Position")]
     public bool animatePosition;
@@ -29,23 +23,15 @@ public class InOutAnim : MonoBehaviour
 
     [Header("Alpha")]
     public bool animateAlpha;
-    public float startAlpha, endAlpha;
-    float defaultAlpha;
+    public float startAlpha, inAlpha=1, outAlpha;
 
     void Awake()
     {
         rt=GetComponent<RectTransform>();
-        img=GetComponent<Image>();
-        // img2=GetComponentsInChildren<Image>();
-        // tmp=GetComponent<TextMeshProUGUI>();
-        // tmp2=GetComponentsInChildren<TextMeshProUGUI>();
 
         defaultPosition = transform.localPosition;
         defaultRotation = transform.eulerAngles.z;
         defaultScale = transform.localScale;
-
-        if(img!=null)
-            defaultAlpha = img.color.a;
 
         resetState();
     }
@@ -64,9 +50,9 @@ public class InOutAnim : MonoBehaviour
         {
             transform.localScale = startScale;
         }
-        if(animateAlpha && img!=null)
+        if(animateAlpha)
         {            
-            img.color = new Color(img.color.r, img.color.g, img.color.b, startAlpha);
+            LeanTween.alpha(rt, startAlpha, 0);
         }
     }
 
@@ -92,7 +78,7 @@ public class InOutAnim : MonoBehaviour
         }
         if(animateAlpha && rt!=null)
         {
-            lt1 = LeanTween.alpha(rt, defaultAlpha, time).setEaseInOutSine().id;
+            lt1 = LeanTween.alpha(rt, inAlpha, time).setEaseInOutSine().id;
         }
     }
 
@@ -112,33 +98,11 @@ public class InOutAnim : MonoBehaviour
         {
             lt1 = LeanTween.scale(gameObject, endScale, time).setEaseInBack().id;
         }
-        if(animateAlpha && rt!=null)
+        if(animateAlpha && rt)
         {
-            lt1 = LeanTween.alpha(rt, endAlpha, time).setEaseInOutSine().id;
+            lt1 = LeanTween.alpha(rt, outAlpha, time).setEaseInOutSine().id;
         }
         
         Invoke("resetState",time);
     }
-
-    // void Update()
-    // {
-    //     if(tmp!=null)
-    //         tmp.color = new Color(tmp.color.r, tmp.color.g, tmp.color.b, img.color.a);
-
-    //     if(img2!=null)
-    //     {
-    //         for(int i=0;i<img2.Length;i++)
-    //         {
-    //             img2[i].color = new Color(img2[i].color.r, img2[i].color.g, img2[i].color.b, img.color.a);
-    //         }
-    //     }
-
-    //     if(tmp2!=null)
-    //     {
-    //         for(int i=0;i<tmp2.Length;i++)
-    //         {
-    //             tmp2[i].color = new Color(tmp2[i].color.r, tmp2[i].color.g, tmp2[i].color.b, img.color.a);
-    //         }
-    //     }
-    // }
 }

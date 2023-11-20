@@ -6,7 +6,9 @@ public class Enemy : MonoBehaviour
 {
     Camera cam;
     Vector3 targetPos;
+    Rigidbody rb;
     public WiggleMove shake;
+    public GameObject skinsGroup;
 
     public float moveSpeedMin=1, moveSpeedMax=4;
     public float lookSpeed=5;
@@ -15,15 +17,27 @@ public class Enemy : MonoBehaviour
     public float wanderRange=5;
     float range, moveSpeed;
     public bool chase, inRange;
-    bool iframe=true;
 
-    void Start()
+    public bool isMoving;
+    public int atkAnim;
+
+    HPManager hp;
+    bool iframe=true;
+    public float iframeTime=.5f;
+
+    public GameObject atkHitbox;
+    public float atkTimeMin=1, atkTimeMax=2;
+
+    void Awake()
     {
-        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        atkHitbox.SetActive(false);
+        cam=GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        hp=GetComponent<HPManager>();
+        rb=GetComponent<Rigidbody>();
 
         StartCoroutine(spawnAnim(.5f));
-
-        StartCoroutine(moving());
+        movingRt=StartCoroutine(moving());
+        atkingRt=StartCoroutine(attacking());
     }
 
     IEnumerator spawnAnim(float time)
@@ -55,8 +69,17 @@ public class Enemy : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookDirection), lookSpeed * Time.deltaTime);
 
         if(Vector3.Distance(transform.position,targetPos)>range)
-        transform.position = Vector3.MoveTowards(transform.position, pos, moveSpeed * Time.deltaTime);
+        {
+            isMoving=true;
+            transform.position = Vector3.MoveTowards(transform.position, pos, moveSpeed * Time.deltaTime);
+        }
+        else
+        {
+            isMoving=false;
+        }
     }
+
+    Coroutine movingRt, atkingRt;
 
     IEnumerator moving()
     {
@@ -92,35 +115,110 @@ public class Enemy : MonoBehaviour
         return Random.Range(min, max);
     }
 
-    void OnCollisionEnter(Collision other)
+    IEnumerator attacking()
     {
-        if(other.gameObject.tag=="PlayerBullet")
+        while(true)
         {
-            hit(1);
+            yield return new WaitForSeconds(rand(atkTimeMin,atkTimeMax));
+
+            if(inRange && !isMoving)
+            {
+                atkAnim=Random.Range(0,2);
+
+                foreach(Animator anim in skinsGroup.GetComponentsInChildren<Animator>())
+                {
+                    anim.SetTrigger("atk");
+                }
+            }
         }
+    }
+
+    public void attack()
+    {
+        StartCoroutine(doHitbox());
+    }
+
+    IEnumerator doHitbox()
+    {
+        atkHitbox.SetActive(true);
+        yield return new WaitForSeconds(.1f);
+        atkHitbox.SetActive(false);
     }
 
     public void hit(float dmg)
     {
         if(!iframe)
         {
+            StartCoroutine(iframing());
+
             shake.shake(.1f);
 
-            //play hurt anim
+            foreach(Animator anim in skinsGroup.GetComponentsInChildren<Animator>())
+            {
+                anim.SetTrigger("hit");
+            }
 
-            //flash red
+            StartCoroutine(flashRed());
+            
+            hp.hit(dmg);
+
+            if(hp.hp<=0) die();
         }
     }
 
-    IEnumerator die()
+    IEnumerator flashRed()
+    {
+        foreach(SkinnedMeshRenderer mesh in skinsGroup.GetComponentsInChildren<SkinnedMeshRenderer>())
+        {
+            List<Color> defcolors =  new List<Color>();
+
+            for(int i=0; i<mesh.materials.Length; i++)
+            {
+                defcolors.Add(mesh.materials[i].color);
+
+                mesh.materials[i].color = new Color(mesh.materials[i].color.r+.5f, mesh.materials[i].color.g-.5f, mesh.materials[i].color.b-.5f);
+            }
+
+            yield return new WaitForSeconds(.1f);
+
+            for(int i=0; i<mesh.materials.Length; i++)
+            {
+                mesh.materials[i].color = new Color(defcolors[i].r, defcolors[i].g, defcolors[i].b);
+            }
+        }
+    }
+
+    IEnumerator iframing()
     {
         iframe=true;
+        yield return new WaitForSeconds(iframeTime);
+        iframe=false;
+    }
 
-        shake.shake(.1f);
+    void die()
+    {
+        if(movingRt!=null) StopCoroutine(movingRt);
+        if(atkingRt!=null) StopCoroutine(atkingRt);
 
-        //play death anim
+        iframe=true;
 
-        yield return new WaitForSeconds(.1f); // wait death anim
+        rb.useGravity=true;
+        rb.isKinematic=false;
+
+        foreach(Animator anim in skinsGroup.GetComponentsInChildren<Animator>())
+        {
+            anim.SetTrigger("die");
+        }
+    }
+
+    public void disappear()
+    {
+        StartCoroutine(disappearing());
+    }
+
+    IEnumerator disappearing()
+    {
+        yield return new WaitForSeconds(1);
 
         LeanTween.scale(gameObject, Vector3.zero, .5f).setEaseOutBack();
 

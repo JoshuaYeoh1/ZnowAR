@@ -23,18 +23,18 @@ public class Singleton : MonoBehaviour
         Invoke("unlockFPS",.1f);
         LoadVolume();
         //awakeAudio();
-        //awakeTransition();
+        awakeTransition();
 
         cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         StartCoroutine(spawningSnowballs());
-        StartCoroutine(spawningEnemies());
+        //StartCoroutine(spawningEnemies());
     }
 
-    // void Update()
-    // {
-    //     updateReloadButton();
-    //     updateShuffleMusic();
-    // }
+    void Update()
+    {
+        updateReloadButton();
+        // updateShuffleMusic();
+    }
 
     void unlockFPS()
     {
@@ -230,165 +230,139 @@ public class Singleton : MonoBehaviour
         }
     }
 
-    // public void playerDie()
-    // {
-    //     StartCoroutine(respawning());
-    // }
-
-    // public IEnumerator respawning()
-    // {
-    //     transitioning = true;
-    //     yield return new WaitForSecondsRealtime(1);
-    //     transitionOut(4);
-    //     yield return new WaitForSecondsRealtime(.1f);
-    //     yield return new WaitForSecondsRealtime(transitionAnimator.GetCurrentAnimatorStateInfo(0).length);
-    //     respawnPlayer();
-    //     transitionIn(4);
-    // }
-
     // public void camShake()
     // {
     //     GameObject.FindGameObjectWithTag("camshaker").GetComponent<WiggleRotate>().shake(.2f);
     // }
 
-    // [Header("Scene Manager")]
-    // public Animator transitionAnimator;
-    // GameObject transitionCanvas;
-    // CanvasGroup transitionCanvasGroup;
-    // public bool transitioning, LevelCompleted;
-    // Coroutine transitionRt;
+    [Header("Scene Manager")]
+    public Animator transitionAnimator;
+    GameObject transitionCanvas;
+    CanvasGroup transitionCanvasGroup;
+    public bool transitioning;
+    int transitionTypes=1;
+    Coroutine transitionRt;
 
-    // public void awakeTransition()
-    // {
-    //     transitionCanvas=transitionAnimator.transform.parent.gameObject;
-    //     transitionCanvasGroup=transitionCanvas.GetComponent<CanvasGroup>();
-    //     transitionCanvas.SetActive(true);
-    //     transitionIn(Random.Range(0,4));
-    // }
+    public void awakeTransition()
+    {
+        transitionCanvas=transitionAnimator.transform.parent.gameObject;
+        transitionCanvasGroup=transitionCanvas.GetComponent<CanvasGroup>();
+        transitionCanvas.SetActive(true);
+        transitionIn(Random.Range(0,transitionTypes));
+    }
 
-    // public void transitionIn(int type)
-    // {
-    //     cancelTransition();
-    //     transitionRt = StartCoroutine(transitionInEnum(type));
-    // }
-    // IEnumerator transitionInEnum(int type)
-    // {
-    //     enableTransition();
-    //     transitionAnimator.SetInteger("randin", type);
+    public void transitionIn(int type)
+    {
+        cancelTransition();
+        transitionRt = StartCoroutine(transitionInEnum(type));
+    }
+    IEnumerator transitionInEnum(int type)
+    {
+        enableTransition();
+        transitionAnimator.SetInteger("randin", type);
 
-    //     yield return new WaitForSecondsRealtime(.1f);
-    //     yield return new WaitForSecondsRealtime(transitionAnimator.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSecondsRealtime(.1f);
+        yield return new WaitForSecondsRealtime(transitionAnimator.GetCurrentAnimatorStateInfo(0).length);
 
-    //     disableTransition();
-    // }
+        disableTransition();
+    }
 
-    // public void transitionOut(int type, bool quit=false)
-    // {
-    //     cancelTransition();
-    //     transitionRt = StartCoroutine(transitionOutEnum(type, quit));
-    // }
-    // IEnumerator transitionOutEnum(int type, bool quit=false)
-    // {
-    //     enableTransition();
-    //     transitionAnimator.SetInteger("randout", type);
+    public void transitionOut(int type, bool quit=false)
+    {
+        cancelTransition();
+        transitionRt = StartCoroutine(transitionOutEnum(type, quit));
+    }
+    IEnumerator transitionOutEnum(int type, bool quit=false)
+    {
+        enableTransition();
+        transitionAnimator.SetInteger("randout", type);
 
-    //     if(quit)
-    //     {
-    //         yield return new WaitForSecondsRealtime(.1f);
+        if(quit)
+        {
+            yield return new WaitForSecondsRealtime(.1f);
 
-    //         fadeAudio(musicSource, true, transitionAnimator.GetCurrentAnimatorStateInfo(0).length, 0);
-    //         fadeAudio(ambSource, true, transitionAnimator.GetCurrentAnimatorStateInfo(0).length, 0);
+            // fadeAudio(musicSource, true, transitionAnimator.GetCurrentAnimatorStateInfo(0).length, 0);
+            // fadeAudio(ambSource, true, transitionAnimator.GetCurrentAnimatorStateInfo(0).length, 0);
 
-    //         yield return new WaitForSecondsRealtime(transitionAnimator.GetCurrentAnimatorStateInfo(0).length);
+            yield return new WaitForSecondsRealtime(transitionAnimator.GetCurrentAnimatorStateInfo(0).length);
 
-    //         Debug.Log("Quit");
-    //         Application.Quit();
-    //     }
-    // }
+            Debug.Log("Quit");
+            Application.Quit();
+        }
+    }
 
-    // public void transitionTo(int sceneNumber)
-    // {
-    //     cancelTransition();
-    //     StartCoroutine(transitionToEnum(sceneNumber));
-    // }
-    // IEnumerator transitionToEnum(int sceneNumber, bool anim=true)
-    // {
-    //     if(anim)
-    //     {
-    //         transitionOut(Random.Range(0,4));
-    //         yield return new WaitForSecondsRealtime(.1f);
-    //         yield return new WaitForSecondsRealtime(transitionAnimator.GetCurrentAnimatorStateInfo(0).length);
-    //     }
+    public void transitionTo(int sceneNumber)
+    {
+        cancelTransition();
+        StartCoroutine(transitionToEnum(sceneNumber));
+    }
+    IEnumerator transitionToEnum(int sceneNumber, bool anim=true)
+    {
+        if(anim)
+        {
+            transitionOut(Random.Range(0,transitionTypes));
+            yield return new WaitForSecondsRealtime(.1f);
+            yield return new WaitForSecondsRealtime(transitionAnimator.GetCurrentAnimatorStateInfo(0).length);
+        }
 
-    //     SceneManager.LoadScene(sceneNumber);
+        SceneManager.LoadScene(sceneNumber);
 
-    //     if(anim) transitionIn(Random.Range(0,4));
+        if(anim) transitionIn(Random.Range(0,transitionTypes));
 
-    //     yield return new WaitForSecondsRealtime(.1f);
+        yield return new WaitForSecondsRealtime(.1f);
 
-    //     LevelCompleted = false;
-    //     changeMusic();
+        // changeMusic();
 
-    //     toggleAmb(false);
-    //     if(SceneManager.GetActiveScene().buildIndex!=0) toggleAmb(true);
-    // }
+        // toggleAmb(false);
+        // if(SceneManager.GetActiveScene().buildIndex!=0) toggleAmb(true);
+    }
 
-    // void enableTransition()
-    // {
-    //     transitioning=true;
-    //     controlsEnabled=false;
-    //     transitionCanvas.SetActive(true);
-    //     transitionCanvasGroup.interactable=true;
-    //     transitionCanvasGroup.blocksRaycasts=true;
-    // }
+    void enableTransition()
+    {
+        transitioning=true;
+        controlsEnabled=false;
+        transitionCanvas.SetActive(true);
+        transitionCanvasGroup.interactable=true;
+        transitionCanvasGroup.blocksRaycasts=true;
+    }
 
-    // void disableTransition()
-    // {
-    //     transitionCanvasGroup.interactable=false;
-    //     transitionCanvasGroup.blocksRaycasts=false;
-    //     controlsEnabled=true;
-    //     transitioning=false;
-    // }
+    void disableTransition()
+    {
+        transitionCanvasGroup.interactable=false;
+        transitionCanvasGroup.blocksRaycasts=false;
+        controlsEnabled=true;
+        transitioning=false;
+    }
 
-    // void cancelTransition()
-    // {
-    //     transitionCanvasGroup.interactable=false;
-    //     transitionCanvasGroup.blocksRaycasts=false;
-    //     if(transitionRt!=null) StopCoroutine(transitionRt);
-    //     transitionAnimator.SetInteger("randin", -1);
-    //     transitionAnimator.SetInteger("randout", -1);
-    //     transitionCanvas.SetActive(false);
-    //     transitioning=false;
-    // }
+    void cancelTransition()
+    {
+        transitionCanvasGroup.interactable=false;
+        transitionCanvasGroup.blocksRaycasts=false;
+        if(transitionRt!=null) StopCoroutine(transitionRt);
+        transitionAnimator.SetInteger("randin", -1);
+        transitionAnimator.SetInteger("randout", -1);
+        transitionCanvas.SetActive(false);
+        transitioning=false;
+    }
 
-    // void updateReloadButton()
-    // {
-    //     if(Input.GetKeyDown(KeyCode.R)) ReloadScene();
-    // }
+    void updateReloadButton()
+    {
+        if(Input.GetKeyDown(KeyCode.R)) ReloadScene();
+    }
 
-    // public void ReloadScene()
-    // {
-    //     if(!transitioning && SceneManager.GetActiveScene().buildIndex!=0)
-    //     transitionTo(SceneManager.GetActiveScene().buildIndex);
-    // }
+    public void ReloadScene()
+    {
+        //if(!transitioning && SceneManager.GetActiveScene().buildIndex!=0)
+        transitionTo(SceneManager.GetActiveScene().buildIndex);
+    }
 
-    // public void RandomScene()
-    // {
-    //     if(!transitioning)
-    //     transitionTo(Random.Range(0,6));
-    // }
+    public void RandomScene()
+    {
+        if(!transitioning)
+        transitionTo(Random.Range(0,6));
+    }
 
     // [Header("SFX")]
     // public AudioClip[] sfxBtnClick;
     // public AudioClip[] sfxBtnHover, sfxTween;
 }
-
-
-
-// public void hidePlayer(bool toggle=true)
-    // {
-    //     playerActive=!toggle;
-    //     controlsEnabled=!toggle;
-    //     player.SetActive(!toggle);
-    //     if(!toggle) player.GetComponent<Player>().rerunCoroutines();
-    // }
