@@ -334,7 +334,7 @@ MonoBehaviour:
   bouncecountMin: 1
   bouncecountMax: 3
   dmgMin: 1
-  dmgMax: 2
+  dmgMax: 3
 --- !u!114 &4413339990824156583
 MonoBehaviour:
   m_ObjectHideFlags: 0

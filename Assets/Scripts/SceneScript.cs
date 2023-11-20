@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SceneScript : MonoBehaviour
 {
-    Camera cam;
+    GameObject player;
     public int maxSnowballs=20, snowballCount;
     public List<GameObject> snowballSpawnerList = new List<GameObject>();
     
@@ -16,7 +16,7 @@ public class SceneScript : MonoBehaviour
     
     void Awake()
     {
-        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        player = GameObject.FindGameObjectWithTag("Player");
         StartCoroutine(spawningSnowballs());
         StartCoroutine(spawningEnemies());
     }
@@ -45,12 +45,12 @@ public class SceneScript : MonoBehaviour
                 if(Random.Range(1,3)==1) offsetX=Random.Range(enemySpawnRangeMin,enemySpawnRangeMax);
                 else offsetX=Random.Range(-enemySpawnRangeMin,-enemySpawnRangeMax);
 
-                offsetY=Random.Range(enemySpawnRangeMin,enemySpawnRangeMax);
+                offsetY=Random.Range(0,2f);
 
                 if(Random.Range(1,3)==1) offsetZ=Random.Range(enemySpawnRangeMin,enemySpawnRangeMax);
                 else offsetZ=Random.Range(-enemySpawnRangeMin,-enemySpawnRangeMax);
 
-                Vector3 spawnPos = new Vector3(cam.transform.position.x+offsetX, cam.transform.position.y+offsetY, cam.transform.position.z+offsetZ);
+                Vector3 spawnPos = new Vector3(player.transform.position.x+offsetX, player.transform.position.y+offsetY, player.transform.position.z+offsetZ);
                 
                 GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
 

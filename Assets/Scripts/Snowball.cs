@@ -7,7 +7,7 @@ public class Snowball : MonoBehaviour
     public GameObject particles;
     public int bouncecountMin=1, bouncecountMax=3;
     int bouncecount;
-    public float dmgMin=1, dmgMax=2;
+    public float dmgMin=1, dmgMax=3;
 
     void Awake()
     {

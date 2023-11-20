@@ -104,7 +104,7 @@ public class Enemy : MonoBehaviour
 
     void randTargetPos(float min, float max)
     {
-        targetPos = new Vector3(cam.transform.position.x+rand(min,max), cam.transform.position.y+rand(0,max), cam.transform.position.z+rand(min,max));
+        targetPos = new Vector3(cam.transform.position.x+rand(min,max), cam.transform.position.y+rand(0,2f), cam.transform.position.z+rand(min,max));
     }
 
     float rand(float min=-1, float max=1)

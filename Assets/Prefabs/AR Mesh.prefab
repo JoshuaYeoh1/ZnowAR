@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minVertsForSpawn: 30
-  minRangeFromPlayer: 4
+  minRangeFromPlayer: 2
   spawnObjects:
   - {fileID: 6393777048824257983, guid: c253a10a626627d47bf48a983f0f0e20, type: 3}
   spawnLikelyHood: 50

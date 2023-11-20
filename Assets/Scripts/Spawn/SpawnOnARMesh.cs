@@ -10,11 +10,12 @@ public class SpawnOnARMesh : MonoBehaviour
     MeshAnalyser meshAnalyser;
     Mesh arMesh; 
 
-    public float minVertsForSpawn, minRangeFromPlayer=4;
+    public float minVertsForSpawn, minRangeFromPlayer=2;
 
     public List<GameObject> spawnObjects = new List<GameObject>();
     public int spawnLikelyHood = 33;
     public bool ignoreGround;
+    bool spawned;
 
     void Start()
     {
@@ -37,10 +38,21 @@ public class SpawnOnARMesh : MonoBehaviour
         {
             if(ignoreGround || meshAnalyser.IsGround)
             {
-                if(Vector3.Distance(player.transform.position, transform.position)>minRangeFromPlayer)
-                {
-                    InstantiateObject(GetRandomObject());
-                }
+                StartCoroutine(pendingSpawn());
+            }
+        }
+    }
+
+    IEnumerator pendingSpawn()
+    {
+        while(!spawned)
+        {
+            yield return new WaitForSeconds(.2f);
+
+            if(Vector3.Distance(player.transform.position, transform.position)>minRangeFromPlayer)
+            {
+                spawned=true;
+                InstantiateObject(GetRandomObject());
             }
         }
     }
