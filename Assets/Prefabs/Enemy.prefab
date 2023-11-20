@@ -128,13 +128,13 @@ MonoBehaviour:
   wanderRange: 5
   chase: 0
   inRange: 0
+  facedByPlayer: 0
   isMoving: 0
   atkAnim: 0
-  iframeTime: 0.5
+  iframeTime: 0.1
   atkHitbox: {fileID: 6947047214062900831}
   atkTimeMin: 1
-  atkTimeMax: 2
-  testSnowball: {fileID: 3954930375721700351, guid: 49e1d07d2658ccb459cef21dcabda211, type: 3}
+  atkTimeMax: 3
 --- !u!114 &828991308941076641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,6 +152,7 @@ MonoBehaviour:
   hpMax: 3
   regenHp: 1
   regenTime: 1
+  hpBarFill: {fileID: 0}
   hpBar: {fileID: 0}
 --- !u!114 &7386203961071842900
 MonoBehaviour:
@@ -308,7 +309,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8571132079444287166
 Transform:
   m_ObjectHideFlags: 0
@@ -399,7 +400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 893e23631da64234eaeb4669434e087f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 5
+  dmg: 10
 --- !u!1001 &4692669072390358311
 PrefabInstance:
   m_ObjectHideFlags: 0

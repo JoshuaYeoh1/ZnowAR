@@ -114,10 +114,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dec6912742a2dfd4589ae717d814f678, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  groundThreshold: 0.44
+  groundThreshold: 0.5
   avgNormal: 0
   minVerts: 10
   isGround: 0
+  groundMaterial: {fileID: 2100000, guid: 2890030dda4399540a88d7c09c9e99ff, type: 2}
 --- !u!114 &-4322430223095565126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,7 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minVertsForSpawn: 30
-  minRangeFromPlayer: 2
+  minRangeFromPlayer: 1.5
   spawnObjects:
   - {fileID: 6393777048824257983, guid: c253a10a626627d47bf48a983f0f0e20, type: 3}
   spawnLikelyHood: 50

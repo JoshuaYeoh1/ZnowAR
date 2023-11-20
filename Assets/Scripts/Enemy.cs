@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     SceneScript scene;
-    Camera cam;
+    GameObject player;
     Vector3 targetPos;
     Rigidbody rb;
     public WiggleMove shake;
@@ -17,22 +17,22 @@ public class Enemy : MonoBehaviour
     public float rangeMin=1.25f, rangeMax=1.5f;
     public float wanderRange=5;
     float range, moveSpeed;
-    public bool chase, inRange;
+    public bool chase, inRange, facedByPlayer;
 
     public bool isMoving;
     public int atkAnim;
 
     HPManager hp;
     bool iframe;
-    public float iframeTime=.5f;
+    public float iframeTime=.1f;
 
     public GameObject atkHitbox;
-    public float atkTimeMin=1, atkTimeMax=2;
+    public float atkTimeMin=1, atkTimeMax=3;
 
     void Awake()
     {
         scene=GameObject.FindGameObjectWithTag("Scene").GetComponent<SceneScript>();
-        cam=GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        player=GameObject.FindGameObjectWithTag("Player");
         hp=GetComponent<HPManager>();
         rb=GetComponent<Rigidbody>();
 
@@ -60,7 +60,9 @@ public class Enemy : MonoBehaviour
 
     void moveToTarget(Vector3 pos)
     {
-        Vector3 lookDirection = pos - transform.position;
+        Vector3 lookDirection;
+        if(chase) lookDirection = player.transform.position - transform.position;
+        else lookDirection = pos - transform.position;
         lookDirection.Normalize();
 
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookDirection), lookSpeed * Time.deltaTime);
@@ -87,7 +89,7 @@ public class Enemy : MonoBehaviour
 
             if(chase)
             {
-                targetPos = cam.transform.position;
+                targetPos = player.transform.position;
 
                 yield return new WaitForSeconds(rand(stayTimeMin,stayTimeMax));
             }
@@ -104,7 +106,7 @@ public class Enemy : MonoBehaviour
 
     void randTargetPos(float min, float max)
     {
-        targetPos = new Vector3(cam.transform.position.x+rand(min,max), cam.transform.position.y+rand(0,2f), cam.transform.position.z+rand(min,max));
+        targetPos = new Vector3(player.transform.position.x+rand(min,max), player.transform.position.y+rand(0,2f), player.transform.position.z+rand(min,max));
     }
 
     float rand(float min=-1, float max=1)
@@ -118,7 +120,7 @@ public class Enemy : MonoBehaviour
         {
             yield return new WaitForSeconds(rand(atkTimeMin,atkTimeMax));
 
-            if(inRange && !isMoving)
+            if(inRange && !isMoving && facedByPlayer)
             {
                 atkAnim=Random.Range(0,2);
 
@@ -226,6 +228,25 @@ public class Enemy : MonoBehaviour
         scene.enemyList.Remove(gameObject);
 
         Destroy(gameObject);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        ReliableOnTriggerExit.NotifyTriggerEnter(other, gameObject, OnTriggerExit);
+
+        if(other.tag=="PlayerFront")
+        {
+            facedByPlayer=true;
+        }
+    }
+    void OnTriggerExit(Collider other)
+    {
+        ReliableOnTriggerExit.NotifyTriggerExit(other, gameObject);
+
+        if(other.tag=="PlayerFront")
+        {
+            facedByPlayer=false;
+        }
     }
 
     // public GameObject testSnowball;

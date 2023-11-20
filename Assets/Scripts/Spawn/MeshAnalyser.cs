@@ -6,11 +6,14 @@ using UnityEngine;
 public class MeshAnalyser : MonoBehaviour
 {
     MeshFilter _meshFilter;
+    MeshRenderer mr;
 
     public float groundThreshold;
     public float avgNormal;
     public float minVerts;
     public bool isGround;
+
+    public Material groundMaterial;
 
     public bool IsGround
     {
@@ -27,6 +30,7 @@ public class MeshAnalyser : MonoBehaviour
     void Start()
     {
         _meshFilter = GetComponent<MeshFilter>();
+        mr = GetComponent<MeshRenderer>();
         
         if(_meshFilter != null)
          StartCoroutine(CheckForGround());
@@ -62,5 +66,13 @@ public class MeshAnalyser : MonoBehaviour
         }
 
         return false;
+    }
+
+    void Update()
+    {
+        if(isGround && mr.material != groundMaterial)
+        {
+            mr.material = groundMaterial;
+        }
     }
 }
