@@ -21,7 +21,7 @@ public class HPManager : MonoBehaviour
         if(hp>hpMax) hp=hpMax;
         else if(hp<0) hp=0;
 
-        if(hp>0 && hp<hpMax && canShow)
+        if(hp>0 && hp<hpMax && canShow && hpBar)
         {
             toggleShow();
 
@@ -29,7 +29,7 @@ public class HPManager : MonoBehaviour
 
             Invoke("toggleHide",.5f);
         }
-        else if((hp<=0 || hp>=hpMax) && canHide)
+        else if((hp<=0 || hp>=hpMax) && canHide && hpBar)
         {
             toggleHide();
 

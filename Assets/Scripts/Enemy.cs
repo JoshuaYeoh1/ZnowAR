@@ -29,6 +29,10 @@ public class Enemy : MonoBehaviour
     public GameObject atkHitbox;
     public float atkTimeMin=1, atkTimeMax=3;
 
+    public GameObject hpBarPrefab;
+    HPBar hpBar;
+    public Transform hpBarPos;
+
     void Awake()
     {
         scene=GameObject.FindGameObjectWithTag("Scene").GetComponent<SceneScript>();
@@ -41,6 +45,10 @@ public class Enemy : MonoBehaviour
         spawnAnim();
         movingRt=StartCoroutine(moving());
         atkingRt=StartCoroutine(attacking());
+
+        hpBar = Instantiate(hpBarPrefab,hpBarPos.position,Quaternion.identity).GetComponent<HPBar>();
+        hp.hpBarFill=hpBar.hpBarFill;
+        hp.hpBar=hpBar.hpBar;
     }
 
     void spawnAnim()
@@ -56,6 +64,8 @@ public class Enemy : MonoBehaviour
 
         if(Vector3.Distance(transform.position,targetPos)<=rangeMax && chase) inRange=true;
         else inRange=false;
+
+        hpBar.transform.position = hpBarPos.position;
     }
 
     void moveToTarget(Vector3 pos)

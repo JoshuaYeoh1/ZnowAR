@@ -1,5 +1,55 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &717116694462330229
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4190414801299626846}
+  - component: {fileID: 8875070117035395240}
+  m_Layer: 7
+  m_Name: HP Bar Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4190414801299626846
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717116694462330229}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4692669072198584650}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8875070117035395240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717116694462330229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 518529ddbc111f647b2b6494ac1089ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frequency: 1
+  magnitude: 0.1
+  wiggle: 1
+  doX: 0
+  doY: 1
+  doZ: 0
 --- !u!1 &4692669072198584651
 GameObject:
   m_ObjectHideFlags: 0
@@ -29,6 +79,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4190414801299626846}
   - {fileID: 8571132079444287166}
   - {fileID: 2023705092362813254}
   m_Father: {fileID: 4692669073986750204}
@@ -135,6 +186,8 @@ MonoBehaviour:
   atkHitbox: {fileID: 6947047214062900831}
   atkTimeMin: 1
   atkTimeMax: 3
+  hpBarPrefab: {fileID: 5717642537870264288, guid: 8b2d4d8157fbe7c4f99f028d046ea5a9, type: 3}
+  hpBarPos: {fileID: 4190414801299626846}
 --- !u!114 &828991308941076641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,7 +321,7 @@ Transform:
   - {fileID: 5085985467094491852}
   - {fileID: 5085985466966027557}
   m_Father: {fileID: 4692669072198584650}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8255008083289002726
 MonoBehaviour:
@@ -323,7 +376,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4692669072198584650}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4647733598022812596
 MeshFilter:

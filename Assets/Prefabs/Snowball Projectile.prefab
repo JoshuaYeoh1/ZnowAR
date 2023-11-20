@@ -335,6 +335,7 @@ MonoBehaviour:
   bouncecountMax: 3
   dmgMin: 1
   dmgMax: 3
+  hitmarker: {fileID: 5056684987301472311, guid: 478405b3083b87f4b9394be71b41d064, type: 3}
 --- !u!114 &4413339990824156583
 MonoBehaviour:
   m_ObjectHideFlags: 0
