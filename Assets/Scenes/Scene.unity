@@ -908,6 +908,7 @@ GameObject:
   - component: {fileID: 784516845}
   - component: {fileID: 784516847}
   - component: {fileID: 784516848}
+  - component: {fileID: 784516849}
   m_Layer: 5
   m_Name: SnowballUI
   m_TagString: Untagged
@@ -1013,6 +1014,24 @@ MonoBehaviour:
   startAlpha: 0
   inAlpha: 1
   outAlpha: 0
+--- !u!114 &784516849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784516843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2455b2cf903c47489eb5c39c047551f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frequency: 1
+  magnitude: 15
+  wiggle: 1
+  doX: 0
+  doY: 0
+  doZ: 1
 --- !u!1 &879035012
 GameObject:
   m_ObjectHideFlags: 0
@@ -1672,8 +1691,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2455b2cf903c47489eb5c39c047551f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frequency: 0.5
-  magnitude: 5
+  frequency: 1
+  magnitude: 15
   wiggle: 1
   doX: 0
   doY: 0
@@ -1698,7 +1717,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1321467872, guid: 7bb12e1a1363c514bb9ee72a9acafce2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 595fba9c9a6aa374884dd68dec4e9edf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
