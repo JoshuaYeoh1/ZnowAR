@@ -4,22 +4,24 @@ using UnityEngine;
 
 public class SnowballSpawner : MonoBehaviour
 {
+    SceneScript scene;
     public GameObject snowballPickup;
 
     void Start()
     {
-        Singleton.instance.snowballSpawnerList.Add(gameObject);
+        scene=GameObject.FindGameObjectWithTag("Scene").GetComponent<SceneScript>();
+        scene.snowballSpawnerList.Add(gameObject);
     }
 
     public void spawnSnowball()
     {
-        Singleton.instance.snowballCount++;
+        scene.snowballCount++;
 
         Instantiate(snowballPickup, new Vector3(transform.position.x, transform.position.y+.1f, transform.position.z), Quaternion.identity);
     }
 
     void OnDestroy()
     {
-        Singleton.instance.snowballSpawnerList.Remove(gameObject);
+        scene.snowballSpawnerList.Remove(gameObject);
     }
 }

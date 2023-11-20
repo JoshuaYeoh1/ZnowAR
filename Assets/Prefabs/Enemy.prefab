@@ -123,8 +123,8 @@ MonoBehaviour:
   lookSpeed: 5
   stayTimeMin: 3
   stayTimeMax: 5
-  rangeMin: 0.7
-  rangeMax: 1
+  rangeMin: 1.25
+  rangeMax: 1.5
   wanderRange: 5
   chase: 0
   inRange: 0
@@ -134,6 +134,7 @@ MonoBehaviour:
   atkHitbox: {fileID: 6947047214062900831}
   atkTimeMin: 1
   atkTimeMax: 2
+  testSnowball: {fileID: 3954930375721700351, guid: 49e1d07d2658ccb459cef21dcabda211, type: 3}
 --- !u!114 &828991308941076641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,6 +152,7 @@ MonoBehaviour:
   hpMax: 3
   regenHp: 1
   regenTime: 1
+  hpBar: {fileID: 0}
 --- !u!114 &7386203961071842900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -306,7 +308,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8571132079444287166
 Transform:
   m_ObjectHideFlags: 0
@@ -383,8 +385,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 1.3799576}
+  m_Center: {x: 0, y: 0, z: 0.18998013}
 --- !u!114 &8137124239216785000
 MonoBehaviour:
   m_ObjectHideFlags: 0

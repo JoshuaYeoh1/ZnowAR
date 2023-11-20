@@ -6,7 +6,9 @@ public class ShootSnowball : MonoBehaviour
 {
     Camera cam;
     public GameObject snowballPrefab;
-    public float shootForce=1000, fireRate=.3f;
+
+    public int snowballAmmo=10;
+    public float shootForceMin=500, shootForceMax=1000, fireRate=.3f;
     public LayerMask pickupLayer;
     bool canShoot=true;
 
@@ -35,15 +37,15 @@ public class ShootSnowball : MonoBehaviour
 
     void shootSnowball(Ray ray)
     {
-        if(canShoot && Singleton.instance.snowballAmmo>0)
+        if(canShoot && snowballAmmo>0)
         {
-            Singleton.instance.snowballAmmo--;
+            snowballAmmo--;
 
             StartCoroutine(shootCooldown());
 
             GameObject ball = Instantiate(snowballPrefab, ray.origin, Quaternion.identity);
 
-            ball.GetComponent<Rigidbody>().AddForce(ray.direction * shootForce);
+            ball.GetComponent<Rigidbody>().AddForce(ray.direction * Random.Range(shootForceMin,shootForceMax));
 
             LeanTween.scale(ball, Vector3.zero, .5f).setDelay(5).setEaseInOutSine();
 

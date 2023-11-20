@@ -6,10 +6,11 @@ using Random = UnityEngine.Random;
 
 public class SpawnOnARMesh : MonoBehaviour
 {
+    GameObject player;
     MeshAnalyser meshAnalyser;
     Mesh arMesh; 
 
-    public float minVertsForSpawn;
+    public float minVertsForSpawn, minRangeFromPlayer=4;
 
     public List<GameObject> spawnObjects = new List<GameObject>();
     public int spawnLikelyHood = 33;
@@ -17,6 +18,8 @@ public class SpawnOnARMesh : MonoBehaviour
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
+
         if(spawnLikelyHood == 0) return;
         meshAnalyser = GetComponent<MeshAnalyser>();
         meshAnalyser.analysisDone += StartSpawning;
@@ -32,7 +35,13 @@ public class SpawnOnARMesh : MonoBehaviour
 
         if (arMesh.vertexCount > minVertsForSpawn)
         {
-            if(ignoreGround || meshAnalyser.IsGround) InstantiateObject(GetRandomObject());
+            if(ignoreGround || meshAnalyser.IsGround)
+            {
+                if(Vector3.Distance(player.transform.position, transform.position)>minRangeFromPlayer)
+                {
+                    InstantiateObject(GetRandomObject());
+                }
+            }
         }
     }
 

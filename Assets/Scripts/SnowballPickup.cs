@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class SnowballPickup : MonoBehaviour
 {
-    Camera cam;
+    SceneScript scene;
+    ShootSnowball player;
     bool canPickup;
 
     void Awake()
     {
-        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        scene=GameObject.FindGameObjectWithTag("Scene").GetComponent<SceneScript>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<ShootSnowball>();
 
         StartCoroutine(spawnAnim(.5f));
     }
 
     void Update()
     {
-        if(Vector3.Distance(transform.position, cam.transform.position)>5 && canPickup)
+        if(Vector3.Distance(transform.position, player.transform.position)>5 && canPickup)
         {
             destroyPickup();
         }
@@ -53,17 +55,17 @@ public class SnowballPickup : MonoBehaviour
         LeanTween.scale(gameObject, defScale, .1f).setEaseInOutSine();
 
         yield return new WaitForSeconds(.1f);
-        LeanTween.move(gameObject, cam.transform.position, .25f).setEaseInOutSine();
+        LeanTween.move(gameObject, player.transform.position, .25f).setEaseInOutSine();
 
         yield return new WaitForSeconds(.25f);
-        Singleton.instance.snowballAmmo++;
+        player.snowballAmmo++;
 
         destroyPickup();
     }
 
     void destroyPickup()
     {
-        if(Singleton.instance.snowballCount>0) Singleton.instance.snowballCount--;
+        if(scene.snowballCount>0) scene.snowballCount--;
 
         LeanTween.scale(gameObject, Vector3.zero, .5f).setEaseInBack();
 

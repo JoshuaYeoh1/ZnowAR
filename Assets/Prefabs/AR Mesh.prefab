@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minVertsForSpawn: 30
+  minRangeFromPlayer: 4
   spawnObjects:
   - {fileID: 6393777048824257983, guid: c253a10a626627d47bf48a983f0f0e20, type: 3}
   spawnLikelyHood: 50
@@ -148,6 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minVertsForSpawn: 1
+  minRangeFromPlayer: 1
   spawnObjects:
   - {fileID: 8787246005411230241, guid: 8cf67692203592c49a78d86949668025, type: 3}
   spawnLikelyHood: 100
@@ -165,7 +167,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minVertsForSpawn: 1
+  minRangeFromPlayer: 1
   spawnObjects:
   - {fileID: 2644626583104067039, guid: ed4976a1ffa678b46b67631115c81db5, type: 3}
-  spawnLikelyHood: 100
+  spawnLikelyHood: 50
   ignoreGround: 1

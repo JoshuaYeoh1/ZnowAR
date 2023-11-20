@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class UISnowballAmmo : MonoBehaviour
 {
+    public ShootSnowball snowball;
     InOutAnim anim;
     public TextMeshProUGUI tmpAmmo;
     bool canShow=true, canHide;
@@ -16,9 +17,9 @@ public class UISnowballAmmo : MonoBehaviour
 
     void Update()
     {
-        tmpAmmo.text = Singleton.instance.snowballAmmo.ToString();
+        tmpAmmo.text = snowball.snowballAmmo.ToString();
 
-        if(Singleton.instance.snowballAmmo>0 && canShow)
+        if(snowball.snowballAmmo>0 && canShow)
         {
             canShow=false;
 
@@ -26,7 +27,7 @@ public class UISnowballAmmo : MonoBehaviour
 
             Invoke("toggleHide",.5f);
         }
-        else if(Singleton.instance.snowballAmmo<=0 && canHide)
+        else if(snowball.snowballAmmo<=0 && canHide)
         {
             canHide=false;
 

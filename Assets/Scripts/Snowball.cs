@@ -20,7 +20,7 @@ public class Snowball : MonoBehaviour
 
         if(other.gameObject.tag=="Enemy")
         {
-            other.gameObject.GetComponent<EnemyCollider>().enemy.hit(Random.Range(dmgMin,dmgMax));
+            other.gameObject.GetComponent<Enemy>().hit(Random.Range(dmgMin,dmgMax));
         }
 
         if(bouncecount<=0)

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    SceneScript scene;
     Camera cam;
     Vector3 targetPos;
     Rigidbody rb;
@@ -13,7 +14,7 @@ public class Enemy : MonoBehaviour
     public float moveSpeedMin=1, moveSpeedMax=4;
     public float lookSpeed=5;
     public float stayTimeMin=3, stayTimeMax=5;
-    public float rangeMin=.7f, rangeMax=1;
+    public float rangeMin=1.25f, rangeMax=1.5f;
     public float wanderRange=5;
     float range, moveSpeed;
     public bool chase, inRange;
@@ -22,7 +23,7 @@ public class Enemy : MonoBehaviour
     public int atkAnim;
 
     HPManager hp;
-    bool iframe=true;
+    bool iframe;
     public float iframeTime=.5f;
 
     public GameObject atkHitbox;
@@ -30,27 +31,23 @@ public class Enemy : MonoBehaviour
 
     void Awake()
     {
-        atkHitbox.SetActive(false);
+        scene=GameObject.FindGameObjectWithTag("Scene").GetComponent<SceneScript>();
         cam=GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         hp=GetComponent<HPManager>();
         rb=GetComponent<Rigidbody>();
 
-        StartCoroutine(spawnAnim(.5f));
+        atkHitbox.SetActive(false);
+
+        spawnAnim();
         movingRt=StartCoroutine(moving());
         atkingRt=StartCoroutine(attacking());
     }
 
-    IEnumerator spawnAnim(float time)
+    void spawnAnim()
     {
         Vector3 defScale = transform.localScale;
-
         transform.localScale = Vector3.zero;
-
-        LeanTween.scale(gameObject, defScale, time).setEaseOutBack();
-
-        yield return new WaitForSeconds(time);
-
-        iframe=false;
+        LeanTween.scale(gameObject, defScale, 1).setEaseOutBack();
     }
 
     void Update()
@@ -209,6 +206,8 @@ public class Enemy : MonoBehaviour
         {
             anim.SetTrigger("die");
         }
+
+        scene.playerKills++;
     }
 
     public void disappear()
@@ -224,8 +223,18 @@ public class Enemy : MonoBehaviour
 
         yield return new WaitForSeconds(.5f);
 
-        Singleton.instance.enemyList.Remove(gameObject);
+        scene.enemyList.Remove(gameObject);
 
         Destroy(gameObject);
     }
+
+    // public GameObject testSnowball;
+
+    // void LateUpdate()
+    // {
+    //     if(Input.GetKeyDown(KeyCode.Space))
+    //     {
+    //         Instantiate(testSnowball, new Vector3(transform.position.x, transform.position.y+1f, transform.position.z), Quaternion.identity);
+    //     }
+    // }
 }
