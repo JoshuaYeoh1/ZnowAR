@@ -179,6 +179,7 @@ public class Singleton : MonoBehaviour
     
     [Header("Game")]
     public bool controlsEnabled=true;
+    public bool showTutorial=true;
 
     // public void camShake()
     // {

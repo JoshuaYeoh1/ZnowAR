@@ -13,12 +13,17 @@ public class SceneScript : MonoBehaviour
     public float enemySpawnTimeMin=5, enemySpawnTimeMax=10;
     public float enemySpawnRangeMin=5, enemySpawnRangeMax=10;
     public int maxEnemies=3, playerKills;
+
+    public InOutAnim tutorialWindow;
+    public bool gameStart;
     
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         StartCoroutine(spawningSnowballs());
         StartCoroutine(spawningEnemies());
+
+        Invoke("checkTutorial", .5f);
     }
 
     IEnumerator spawningSnowballs()
@@ -27,7 +32,7 @@ public class SceneScript : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(.5f,1f));
 
-            if(snowballCount<maxSnowballs && snowballSpawnerList.Count>0)
+            if(snowballCount<maxSnowballs && snowballSpawnerList.Count>0 && gameStart)
             snowballSpawnerList[Random.Range(0,snowballSpawnerList.Count)].GetComponent<SnowballSpawner>().spawnSnowball();
         }
     }
@@ -40,7 +45,7 @@ public class SceneScript : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(enemySpawnTimeMin,enemySpawnTimeMax));
 
-            if(enemyList.Count<maxEnemies)
+            if(enemyList.Count<maxEnemies && gameStart)
             {                
                 if(Random.Range(1,3)==1) offsetX=Random.Range(enemySpawnRangeMin,enemySpawnRangeMax);
                 else offsetX=Random.Range(-enemySpawnRangeMin,-enemySpawnRangeMax);
@@ -57,5 +62,24 @@ public class SceneScript : MonoBehaviour
                 enemyList.Add(enemy);
             }
         }
+    }
+
+    void checkTutorial()
+    {
+        if(Singleton.instance.showTutorial)
+        {
+            tutorialWindow.animIn(.5f);
+        }
+        else
+        {
+            tutorialWindow.gameObject.SetActive(false);
+            gameStart=true;
+        }
+    }
+
+    public void closeTutorialWindow()
+    {
+        tutorialWindow.animOut(.5f);
+        gameStart=true;
     }
 }

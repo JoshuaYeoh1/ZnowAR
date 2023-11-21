@@ -158,7 +158,7 @@ public class Enemy : MonoBehaviour
     {
         if(!iframe)
         {
-            StartCoroutine(iframing());
+            if(hp.hp>0) StartCoroutine(iframing());
 
             shake.shake(.1f);
 

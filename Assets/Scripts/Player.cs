@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     {
         if(!iframe)
         {
-            StartCoroutine(iframing());
+            if(hp.hp>0) StartCoroutine(iframing());
 
             hp.hit(dmg);
 

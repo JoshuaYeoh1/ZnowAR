@@ -15,6 +15,7 @@ TagManager:
   - Enemy
   - Scene
   - PlayerFront
+  - Button
   layers:
   - Default
   - TransparentFX

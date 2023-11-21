@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ShootSnowball : MonoBehaviour
 {
-    Camera cam;
+    SceneScript scene;
     public GameObject snowballPrefab;
 
     public int snowballAmmo=10;
@@ -14,14 +14,14 @@ public class ShootSnowball : MonoBehaviour
 
     void Awake()
     {
-        cam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        scene=GameObject.FindGameObjectWithTag("Scene").GetComponent<SceneScript>();
     }
 
     void Update()
     {
         if(Input.GetMouseButtonDown(0))
         {
-            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
             if(Physics.Raycast(ray, out RaycastHit hit, 99999, pickupLayer, QueryTriggerInteraction.Collide))
             {
@@ -37,7 +37,7 @@ public class ShootSnowball : MonoBehaviour
 
     void shootSnowball(Ray ray)
     {
-        if(canShoot && snowballAmmo>0)
+        if(canShoot && snowballAmmo>0 && scene.gameStart)
         {
             snowballAmmo--;
 
