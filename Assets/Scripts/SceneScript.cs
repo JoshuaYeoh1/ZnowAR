@@ -79,6 +79,7 @@ public class SceneScript : MonoBehaviour
 
     public void closeTutorialWindow()
     {
+        Singleton.instance.showTutorial=false;
         tutorialWindow.animOut(.5f);
         gameStart=true;
     }
