@@ -16,6 +16,8 @@ public class SnowballSpawner : MonoBehaviour
     public void spawnSnowball()
     {
         Instantiate(snowballPickup, new Vector3(transform.position.x, transform.position.y+.1f, transform.position.z), Quaternion.identity);
+
+        Singleton.instance.playSFX(Singleton.instance.sfxSnowballSpawn, transform);
     }
 
     void OnDestroy()

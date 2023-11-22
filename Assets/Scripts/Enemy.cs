@@ -33,6 +33,8 @@ public class Enemy : MonoBehaviour
     HPBar hpBar;
     public Transform hpBarPos;
 
+    public AudioSource voiceSource;
+
     void Awake()
     {
         scene=GameObject.FindGameObjectWithTag("Scene").GetComponent<SceneScript>();
@@ -51,6 +53,8 @@ public class Enemy : MonoBehaviour
         hp.hpBar=hpBar.hpBar;
 
         scene.enemyList.Add(gameObject);
+
+        StartCoroutine(playingVoiceIdle());
     }
 
     void spawnAnim()
@@ -58,6 +62,7 @@ public class Enemy : MonoBehaviour
         Vector3 defScale = transform.localScale;
         transform.localScale = Vector3.zero;
         LeanTween.scale(gameObject, defScale, 1).setEaseOutBack();
+        Singleton.instance.playSFX(Singleton.instance.sfxEnemySpawn, transform);
     }
 
     void Update()
@@ -138,8 +143,11 @@ public class Enemy : MonoBehaviour
 
                 foreach(Animator anim in skinsGroup.GetComponentsInChildren<Animator>())
                 {
-                    anim.SetTrigger("atk");
+                    anim.SetTrigger("atk");                    
                 }
+
+                Singleton.instance.playSFX(Singleton.instance.sfxEnemySwing, transform);
+                Singleton.instance.playVoice(voiceSource, Singleton.instance.sfxEnemyVoiceAttack);
             }
         }
     }
@@ -160,7 +168,12 @@ public class Enemy : MonoBehaviour
     {
         if(!iframe)
         {
-            if(hp.hp>0) StartCoroutine(iframing());
+            if(hp.hp>0)
+            {
+                StartCoroutine(iframing());
+
+                Singleton.instance.playVoice(voiceSource, Singleton.instance.sfxEnemyVoiceHurt);
+            }
 
             shake.shake(.1f);
 
@@ -172,6 +185,8 @@ public class Enemy : MonoBehaviour
             StartCoroutine(flashRed());
             
             hp.hit(dmg);
+
+            Singleton.instance.playSFX(Singleton.instance.sfxEnemyHit, transform);
 
             if(hp.hp<=0) die();
         }
@@ -221,6 +236,8 @@ public class Enemy : MonoBehaviour
             anim.SetTrigger("die");
         }
 
+        Singleton.instance.playVoice(voiceSource, Singleton.instance.sfxEnemyVoiceDie);
+
         scene.playerKills++;
     }
 
@@ -261,6 +278,17 @@ public class Enemy : MonoBehaviour
         if(other.tag=="PlayerFront")
         {
             facedByPlayer=false;
+        }
+    }
+
+    IEnumerator playingVoiceIdle()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(Random.Range(2f,5f));
+
+            if(!iframe && hp.hp>0)
+            Singleton.instance.playVoice(voiceSource, Singleton.instance.sfxEnemyVoiceIdle);
         }
     }
 

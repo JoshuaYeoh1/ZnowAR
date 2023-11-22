@@ -29,7 +29,8 @@ public class Singleton : MonoBehaviour
     void Update()
     {
         updateReloadButton();
-        // updateShuffleMusic();
+        updateShuffleMusic();
+        updateShuffleAmbient();
     }
 
     void unlockFPS()
@@ -41,91 +42,107 @@ public class Singleton : MonoBehaviour
     [Header("Audio Manager")]
     public AudioSource SFXObject;
     public AudioSource musicSource, ambSource;
-    //public AudioClip[] musMainMenu, musLevel1, musLevel2, musWin, amb1, amb2;
+    public AudioClip[] mus, amb;
     //Coroutine randAmbRt;
 
-    // void awakeAudio()
-    // {
-    //     changeMusic(.1f);
-    // }    
+    void awakeAudio()
+    {
+        changeMusic(.1f);
+        playAmbient();
+    }    
 
-    // public void changeMusic(float changeFadeTime=2)
-    // {
-    //     StartCoroutine(changingMusic(changeFadeTime));
-    // }
+    public void changeMusic(float changeFadeTime=2)
+    {
+        StartCoroutine(changingMusic(changeFadeTime));
+    }
     
-    // IEnumerator changingMusic(float changeFadeTime)
-    // {
-    //     fadeAudio(musicSource, true, changeFadeTime, 0);
+    IEnumerator changingMusic(float changeFadeTime)
+    {
+        fadeAudio(musicSource, true, changeFadeTime, 0);
 
-    //     yield return new WaitForSecondsRealtime(changeFadeTime);
+        yield return new WaitForSecondsRealtime(changeFadeTime);
 
-    //     playMusic();
-    // }
+        playMusic();
+    }
 
-    // void playMusic()
-    // {
-    //     musicSource.Stop();
+    void playMusic()
+    {
+        musicSource.Stop();
+        fadeAudio(musicSource, true, .1f, 1);
 
-    //     fadeAudio(musicSource, true, .1f, 1);
+        // if(SceneManager.GetActiveScene().buildIndex==0)
+        // musicSource.clip = musMainMenu[Random.Range(0, musMainMenu.Length)];
+        // else if(LevelCompleted)
+        // musicSource.clip = musWin[Random.Range(0, musWin.Length)];
+        // else if(SceneManager.GetActiveScene().buildIndex==1)
+        // musicSource.clip = musLevel1[Random.Range(0, musLevel1.Length)];
+        // else
+        musicSource.clip = mus[Random.Range(0, mus.Length)];
+        musicSource.Play();
+    }
 
-    //     if(SceneManager.GetActiveScene().buildIndex==0)
-    //     musicSource.clip = musMainMenu[Random.Range(0, musMainMenu.Length)];
-    //     else if(LevelCompleted)
-    //     musicSource.clip = musWin[Random.Range(0, musWin.Length)];
-    //     else if(SceneManager.GetActiveScene().buildIndex==1)
-    //     musicSource.clip = musLevel1[Random.Range(0, musLevel1.Length)];
-    //     else
-    //     musicSource.clip = musLevel2[Random.Range(0, musLevel2.Length)];
+    void updateShuffleMusic()
+    {
+        if(!musicSource.isPlaying)
+        {
+            playMusic();
+        }
+    }
 
-    //     musicSource.Play();
-    // }
+    void updateShuffleAmbient()
+    {
+        if(!ambSource.isPlaying)
+        {
+            playAmbient();
+        }
+    }
 
-    // void updateShuffleMusic()
-    // {
-    //     if(!musicSource.isPlaying)
-    //     {
-    //         playMusic();
-    //     }
-    // }
+    void playAmbient()
+    {
+        ambSource.Stop();
+        fadeAudio(ambSource, true, .1f, 1);
 
-    // public void fadeAudio(AudioSource source, bool fadeIn, float fadeTime, float toVolume)
-    // {
-    //     StartCoroutine(fadeAudioEnum(source, fadeIn, fadeTime, toVolume));
-    // }
+        ambSource.clip = amb[Random.Range(0, amb.Length)];
+        ambSource.Play();
+    }
 
-    // IEnumerator fadeAudioEnum(AudioSource source, bool fadeIn, float fadeTime, float toVolume)
-    // {
-    //     if(!fadeIn)
-    //     {
-    //         float lengthOfSource = source.clip.samples/source.clip.frequency;
-    //         yield return new WaitForSecondsRealtime(lengthOfSource-fadeTime);
-    //     }
+    public void fadeAudio(AudioSource source, bool fadeIn, float fadeTime, float toVolume)
+    {
+        StartCoroutine(fadeAudioEnum(source, fadeIn, fadeTime, toVolume));
+    }
 
-    //     float time=0, startVolume=source.volume;
-    //     while(time<fadeTime)
-    //     {
-    //         time+=Time.deltaTime;
-    //         source.volume = Mathf.Lerp(startVolume, toVolume, time/fadeTime);
-    //         yield return null;
-    //     }
-    //     yield break;
-    // }
+    IEnumerator fadeAudioEnum(AudioSource source, bool fadeIn, float fadeTime, float toVolume)
+    {
+        if(!fadeIn)
+        {
+            float lengthOfSource = source.clip.samples/source.clip.frequency;
+            yield return new WaitForSecondsRealtime(lengthOfSource-fadeTime);
+        }
 
-    // void toggleAmb(bool toggle=true)
-    // {
-    //     if(toggle)
-    //     {
-    //         ambSource.clip = amb1[Random.Range(0, amb1.Length)];
-    //         ambSource.Play();
-    //         randAmbRt=StartCoroutine(randAmb());
-    //     }
-    //     else
-    //     {
-    //         ambSource.Stop();
-    //         if(randAmbRt!=null) StopCoroutine(randAmbRt);
-    //     }
-    // }
+        float time=0, startVolume=source.volume;
+        while(time<fadeTime)
+        {
+            time+=Time.deltaTime;
+            source.volume = Mathf.Lerp(startVolume, toVolume, time/fadeTime);
+            yield return null;
+        }
+        yield break;
+    }
+
+    void toggleAmb(bool toggle=true)
+    {
+        if(toggle)
+        {
+            ambSource.clip = amb[Random.Range(0, amb.Length)];
+            ambSource.Play();
+            //randAmbRt=StartCoroutine(randAmb());
+        }
+        else
+        {
+            ambSource.Stop();
+            //if(randAmbRt!=null) StopCoroutine(randAmbRt);
+        }
+    }
 
     // IEnumerator randAmb()
     // {
@@ -155,6 +172,20 @@ public class Singleton : MonoBehaviour
         source.Play();
 
         Destroy(source.gameObject, source.clip.length);
+    }
+
+    public void playVoice(AudioSource voiceSource, AudioClip[] clip, bool dynamics=true, bool randPitch=true, float volume=1, bool randPan=false)
+    {   
+        voiceSource.Stop();
+
+        voiceSource.clip = clip[Random.Range(0,clip.Length)];
+        voiceSource.volume = volume;
+        SFXObject sfxobj = voiceSource.GetComponent<SFXObject>();
+        sfxobj.randPitch = randPitch;
+        sfxobj.dynamics = dynamics;
+        if(randPan) voiceSource.panStereo = Random.Range(-1f,1f);
+
+        voiceSource.Play();
     }
 
     public AudioMixer mixer;
@@ -314,6 +345,10 @@ public class Singleton : MonoBehaviour
     }
 
     [Header("SFX")]
-    public AudioClip[] sfxSnowballShoot;
-    //public AudioClip[] sfxBtnHover, sfxTween;
+    public AudioClip[] sfxSnowTransition;
+    public AudioClip[] sfxSnowballShoot, sfxSnowballBounce, sfxSnowballBreak, sfxSnowballSpawn, sfxSnowballPickup;
+    public AudioClip[] sfxHitmarker, sfxPropSpawn;
+    public AudioClip[] sfxEnemySpawn, sfxEnemyHit, sfxEnemySwing, sfxEnemyPunch, sfxEnemyWing;
+    public AudioClip[] sfxEnemyVoiceAttack, sfxEnemyVoiceDie, sfxEnemyVoiceHurt, sfxEnemyVoiceIdle;
+    public AudioClip[] sfxUiLose, sfxUiClick;
 }

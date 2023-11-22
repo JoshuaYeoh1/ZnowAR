@@ -19,6 +19,8 @@ public class Snowball : MonoBehaviour
     {
         bouncecount--;
 
+        Singleton.instance.playSFX(Singleton.instance.sfxSnowballBounce, transform);
+
         if(other.gameObject.tag=="Enemy")
         {
             other.gameObject.GetComponent<Enemy>().hit(Random.Range(dmgMin,dmgMax));
@@ -26,10 +28,14 @@ public class Snowball : MonoBehaviour
             GameObject spawnedHitmarker = Instantiate(hitmarker, other.contacts[0].point, Quaternion.identity);
 
             Destroy(spawnedHitmarker,.1f);
+
+            Singleton.instance.playSFX(Singleton.instance.sfxHitmarker, spawnedHitmarker.transform);
         }
 
         if(bouncecount<=0)
         {
+            Singleton.instance.playSFX(Singleton.instance.sfxSnowballBreak, transform);
+
             Instantiate(particles, transform.position, Quaternion.identity);
 
             Destroy(gameObject);

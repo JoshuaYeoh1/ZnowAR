@@ -1983,6 +1983,8 @@ GameObject:
   - component: {fileID: 1191441418}
   - component: {fileID: 1191441417}
   - component: {fileID: 1191441416}
+  - component: {fileID: 1191441420}
+  - component: {fileID: 1191441419}
   m_Layer: 5
   m_Name: Button
   m_TagString: Button
@@ -2104,6 +2106,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1191441414}
   m_CullTransparentMesh: 1
+--- !u!114 &1191441419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191441414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1191441420}
+          m_TargetAssemblyTypeName: ButtonAnim, Assembly-CSharp
+          m_MethodName: OnMouseEnter
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 1
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1191441420}
+          m_TargetAssemblyTypeName: ButtonAnim, Assembly-CSharp
+          m_MethodName: OnMouseExit
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1191441420}
+          m_TargetAssemblyTypeName: ButtonAnim, Assembly-CSharp
+          m_MethodName: OnMouseDown
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &1191441420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191441414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a414a90452517284d89ea3ea03883871, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animTime: 0.3
+  scaleMult: 0.1
 --- !u!1 &1205546036
 GameObject:
   m_ObjectHideFlags: 0
@@ -2393,13 +2470,146 @@ MonoBehaviour:
   SFXObject: {fileID: 1726934793502344471, guid: 0fd39e6196c787f429af7a3664f9f95f, type: 3}
   musicSource: {fileID: 1542449355}
   ambSource: {fileID: 1542449354}
+  mus:
+  - {fileID: 8300000, guid: 0ed486b8bc5c7e945af319481b58e8be, type: 3}
+  - {fileID: 8300000, guid: c4800c28aec6b0f4eafe043b3ac9ccd9, type: 3}
+  amb:
+  - {fileID: 8300000, guid: 3f734b21e3dd4614ea8738fd168984fa, type: 3}
+  - {fileID: 8300000, guid: 1d8dcbed12c6ceb4e8930fe19db165e9, type: 3}
   mixer: {fileID: 24100000, guid: fbf0ac9f190fb3e448002736bcdca631, type: 2}
   controlsEnabled: 1
   showTutorial: 1
   transitionAnimator: {fileID: 1865607201}
   transitioning: 0
+  sfxSnowTransition:
+  - {fileID: 8300000, guid: 07995eb17e78fe649897782a266b9b94, type: 3}
+  - {fileID: 8300000, guid: 55a4f8c04ff001840aef8703c103bdf8, type: 3}
   sfxSnowballShoot:
-  - {fileID: 8300000, guid: 92321ff04379d964eb08a33fa226cc8e, type: 3}
+  - {fileID: 8300000, guid: d68345ab54df7f24f847ca208def2833, type: 3}
+  sfxSnowballBounce:
+  - {fileID: 8300000, guid: 4f004948b7d9ebb4c939921b910caa0b, type: 3}
+  sfxSnowballBreak:
+  - {fileID: 8300000, guid: 5d3bc5f5c312e2d4aaf7f7e6e2089a46, type: 3}
+  sfxSnowballSpawn:
+  - {fileID: 8300000, guid: 56a3669651af97d4a879fa2bbb3099d8, type: 3}
+  - {fileID: 8300000, guid: fcc0100aa91f2354faafab857e811d8b, type: 3}
+  - {fileID: 8300000, guid: f3b5c3d3eb89aef4181bca13706a0179, type: 3}
+  - {fileID: 8300000, guid: dbc260776ad29ae4183807ac62659062, type: 3}
+  sfxSnowballPickup:
+  - {fileID: 8300000, guid: fac2f095fee7ee74aa1bcdb5ebbeb91d, type: 3}
+  sfxHitmarker:
+  - {fileID: 8300000, guid: 4860c98897822d045ac380af7a426867, type: 3}
+  sfxPropSpawn:
+  - {fileID: 8300000, guid: ca10f71748da0874fa2d49592f8fd900, type: 3}
+  sfxEnemySpawn:
+  - {fileID: 8300000, guid: e6f9347b8b0b024448cf02779d080c79, type: 3}
+  - {fileID: 8300000, guid: bafd283fc316e2c41b47589b8a456fd9, type: 3}
+  - {fileID: 8300000, guid: 941cc2c1279e0204598a4133fa84a4e4, type: 3}
+  sfxEnemyHit:
+  - {fileID: 8300000, guid: ea509995bdce5734e8d409098e87cfbf, type: 3}
+  - {fileID: 8300000, guid: 620a32ddd4d352a4eb0c226d5326e933, type: 3}
+  sfxEnemySwing:
+  - {fileID: 8300000, guid: 43cdd99c7566a71489591121a12ec300, type: 3}
+  - {fileID: 8300000, guid: 492e762afdb77d3499d051cbc8bcca9b, type: 3}
+  - {fileID: 8300000, guid: f2da6bfe5d6ffb1448acd7b3b82184e8, type: 3}
+  - {fileID: 8300000, guid: 0ad44bdffa90bcb439d8b46f2c144868, type: 3}
+  - {fileID: 8300000, guid: 15a3e135b2ff61c46b6f544cbf2c7518, type: 3}
+  - {fileID: 8300000, guid: b5670c9503f5aea43a188d940a7eb15b, type: 3}
+  - {fileID: 8300000, guid: 68dfd743fcd18ad49864af355e380937, type: 3}
+  - {fileID: 8300000, guid: ee2b1c387059031479d9d6d2bfb5f581, type: 3}
+  - {fileID: 8300000, guid: b1bcea89d5fcba54ab2d099581923f5f, type: 3}
+  - {fileID: 8300000, guid: 3efaed8b1f3669a42b011da48d5c7119, type: 3}
+  - {fileID: 8300000, guid: 273045258b7817e4c94adafc8b4edfda, type: 3}
+  - {fileID: 8300000, guid: bf8ed091340ab5b43a251d21493d5a0e, type: 3}
+  sfxEnemyPunch:
+  - {fileID: 8300000, guid: a45fde810937f7c40a8d69473369d1ea, type: 3}
+  - {fileID: 8300000, guid: e8b24a25b91bad54594710c632aba9da, type: 3}
+  - {fileID: 8300000, guid: d9fcace352795974ba9efc0b823e9ad2, type: 3}
+  - {fileID: 8300000, guid: 25d256265cd1dd44eaec249c56bff393, type: 3}
+  - {fileID: 8300000, guid: 682e43fb3c8288645a62d355d7df951e, type: 3}
+  - {fileID: 8300000, guid: f3891ee1597f2db4dbea8f1a746d299c, type: 3}
+  - {fileID: 8300000, guid: 6ae8439461a0efb408d773565a8b3908, type: 3}
+  - {fileID: 8300000, guid: d2aff58e941e0db4aa61a54dd9c64077, type: 3}
+  - {fileID: 8300000, guid: bf0b4aef90677ba419b623157e9221f2, type: 3}
+  - {fileID: 8300000, guid: 9f2245c72046d474ba87c399e64966bb, type: 3}
+  - {fileID: 8300000, guid: c71450760fa0a974ea30807fef034c44, type: 3}
+  - {fileID: 8300000, guid: cd156cfdf062862489d3da8eac937eb5, type: 3}
+  - {fileID: 8300000, guid: 0cae9b0c4356774459fff19101dc9d0a, type: 3}
+  - {fileID: 8300000, guid: ce9a172783a54ce489da8a582b558a28, type: 3}
+  - {fileID: 8300000, guid: 242d35043930363439fab5dc62cd0779, type: 3}
+  sfxEnemyWing:
+  - {fileID: 8300000, guid: 1e53fe4eca12ef24b888d753730999b2, type: 3}
+  - {fileID: 8300000, guid: 1c51910def9085c42bbd943dd92ced01, type: 3}
+  - {fileID: 8300000, guid: b0bee6bf71b18ae4e8e0ca8e8add19dc, type: 3}
+  - {fileID: 8300000, guid: 065fd3fa00d8af34f908bcfda81aeee8, type: 3}
+  - {fileID: 8300000, guid: a099125b934911447b10c0ee4b3f5a8c, type: 3}
+  - {fileID: 8300000, guid: 7f020a3e5fd8a95499e53a3b146690fb, type: 3}
+  sfxEnemyVoiceAttack:
+  - {fileID: 8300000, guid: d5ab399d19a4b24458212b4259f98fce, type: 3}
+  - {fileID: 8300000, guid: 196d110f2a4e4cd40b9de061fd325b10, type: 3}
+  - {fileID: 8300000, guid: afce1070396601e46a6758ef86dfc7ef, type: 3}
+  - {fileID: 8300000, guid: a0b5311954387aa4b919d95852248804, type: 3}
+  - {fileID: 8300000, guid: 36e2e53babe06b5478b8de811689cd30, type: 3}
+  sfxEnemyVoiceDie:
+  - {fileID: 8300000, guid: c3f68fe83ce29a9449fd21db9ebbfe64, type: 3}
+  - {fileID: 8300000, guid: 815e90233927d4b4fafd05ef39824a21, type: 3}
+  - {fileID: 8300000, guid: d5a3fd72586db87489ceb745642878e6, type: 3}
+  - {fileID: 8300000, guid: 29b3de6f0104b5d4a8eef683977c7bb1, type: 3}
+  - {fileID: 8300000, guid: 50ef0c08b135550439b495baf6b57d7f, type: 3}
+  - {fileID: 8300000, guid: 75c76aed633aa1a47bea7b3877593fc5, type: 3}
+  - {fileID: 8300000, guid: 79d2716c3422d554d9b1a82868cd36dc, type: 3}
+  - {fileID: 8300000, guid: 54a7f90159cd91f44a31dbe5ec1e2967, type: 3}
+  - {fileID: 8300000, guid: 6a699ebebc9146f4db2e8336500abc11, type: 3}
+  - {fileID: 8300000, guid: 2f82827be500cae4f8c90e6d8e7b9de8, type: 3}
+  - {fileID: 8300000, guid: 69e6a7d411b9e5644893f98fcf2eca62, type: 3}
+  - {fileID: 8300000, guid: 5e36f9f0dfdf18847bff3c3cc95061ee, type: 3}
+  - {fileID: 8300000, guid: 3c4c8baa49c9bbf47877e73901e89459, type: 3}
+  sfxEnemyVoiceHurt:
+  - {fileID: 8300000, guid: 326960bebe2c40b40b45da0bcd67071b, type: 3}
+  - {fileID: 8300000, guid: 275c8c314d8de3f46ac6175abf80998c, type: 3}
+  - {fileID: 8300000, guid: efec95da1d2581442877d4d78a37f745, type: 3}
+  - {fileID: 8300000, guid: 053ef7a5e0b70e54db3d4e106785d9c6, type: 3}
+  - {fileID: 8300000, guid: be313788d3a4b4742b6b64e546d69989, type: 3}
+  - {fileID: 8300000, guid: 48f6fd80f5b788446a063b8b5da0cdd6, type: 3}
+  - {fileID: 8300000, guid: d51ee39aee193204eb70a065dd254432, type: 3}
+  - {fileID: 8300000, guid: cc368007f7bd31a4dae096f23afa1265, type: 3}
+  - {fileID: 8300000, guid: 49b6e2c5242e66140be9e98bd274408e, type: 3}
+  - {fileID: 8300000, guid: 32b4a1023818ba842b7bb9d17474285a, type: 3}
+  - {fileID: 8300000, guid: 0a3f0bc20417bc04c89095d8f7ac9880, type: 3}
+  sfxEnemyVoiceIdle:
+  - {fileID: 8300000, guid: 4c4762ea6b728a1479e9d2919086353f, type: 3}
+  - {fileID: 8300000, guid: 2352b4f88a0336949a7f307a5d17018e, type: 3}
+  - {fileID: 8300000, guid: f159f6c5c6e8bcd4dbff64f075ce2be4, type: 3}
+  - {fileID: 8300000, guid: cd746e9af89142141978dce17e6fd354, type: 3}
+  - {fileID: 8300000, guid: 0eb56cdf7eb677d409b791f17906a3a7, type: 3}
+  - {fileID: 8300000, guid: 09614194cc6321f40b926666233ce014, type: 3}
+  - {fileID: 8300000, guid: 7125102549e25e3498aa4ae74d00f77f, type: 3}
+  - {fileID: 8300000, guid: 8b232366dc49d4a4298f7ad4d56686e6, type: 3}
+  - {fileID: 8300000, guid: 39f067be52ca0064487334d25faa9044, type: 3}
+  sfxUiLose:
+  - {fileID: 8300000, guid: 474a67c12b83d4d47899b2c6fc97626c, type: 3}
+  - {fileID: 8300000, guid: ee71795f3fa315948ae094bed5c668f1, type: 3}
+  - {fileID: 8300000, guid: 3942cd45d23ae4e4c9db37f94fb0c5d0, type: 3}
+  - {fileID: 8300000, guid: e5e18b8281663d4458647b134de9bc83, type: 3}
+  - {fileID: 8300000, guid: d97c938ea0335894ebcc2a0c8ff6f1fb, type: 3}
+  - {fileID: 8300000, guid: 055f74869e4b26840ba2443bb490b86c, type: 3}
+  - {fileID: 8300000, guid: 28d2204e9aadcb5429e65f0f17835a48, type: 3}
+  - {fileID: 8300000, guid: eceb1a7c340ca974aa955f04b314ff90, type: 3}
+  - {fileID: 8300000, guid: 825ae0e5596423e4c882562f74d45fee, type: 3}
+  - {fileID: 8300000, guid: 5646f3671de5c4f41bb1dfaeb309dcad, type: 3}
+  - {fileID: 8300000, guid: ec6719c3b9840a04da861f4f79b7b76c, type: 3}
+  - {fileID: 8300000, guid: 662ad472d1ffbbe4389fe6d1a8f79a80, type: 3}
+  - {fileID: 8300000, guid: b22c7b1be0b778742b5fc43b1e98338b, type: 3}
+  - {fileID: 8300000, guid: a1a9d7256272ea74d83151c2fcaa4419, type: 3}
+  sfxUiClick:
+  - {fileID: 8300000, guid: 890fa6bdc285e044fab2adeebfef907c, type: 3}
+  - {fileID: 8300000, guid: a3ad13e56aa028c46a3ece69f8a8f34a, type: 3}
+  - {fileID: 8300000, guid: 7771ca8d78c3c1a4ea1a1207b5ccf616, type: 3}
+  - {fileID: 8300000, guid: 45e2a4dd5ecbe5c4d89d164badd47098, type: 3}
+  - {fileID: 8300000, guid: 41bf1d489cd5a0e41b65483926c0ed30, type: 3}
+  - {fileID: 8300000, guid: 015b3973010322d489ccb08da9a26246, type: 3}
+  - {fileID: 8300000, guid: 57a8cbd5ea6945e4693832a1ac58c175, type: 3}
+  - {fileID: 8300000, guid: 428fef3a341045f49a8ef30e2f0e4e11, type: 3}
 --- !u!82 &1542449354
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2411,7 +2621,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -1775126937349135684, guid: fbf0ac9f190fb3e448002736bcdca631, type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -2507,7 +2717,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -5264747507166472462, guid: fbf0ac9f190fb3e448002736bcdca631, type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

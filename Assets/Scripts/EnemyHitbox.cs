@@ -11,6 +11,8 @@ public class EnemyHitbox : MonoBehaviour
         if(other.tag=="Player")
         {
             other.GetComponent<Player>().hit(dmg);
+
+            Singleton.instance.playSFX(Singleton.instance.sfxEnemyPunch, other.transform);
         }
     }
 }

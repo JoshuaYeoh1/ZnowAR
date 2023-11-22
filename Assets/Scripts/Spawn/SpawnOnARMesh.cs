@@ -52,6 +52,8 @@ public class SpawnOnARMesh : MonoBehaviour
         spawned.transform.localScale = Vector3.zero;
 
         LeanTween.scale(spawned, defScale, Random.Range(.5f, 1)).setEaseOutBack();
+
+        Singleton.instance.playSFX(Singleton.instance.sfxPropSpawn, spawned.transform);
     }
 
     Vector3 GetRandomVector()

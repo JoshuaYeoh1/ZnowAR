@@ -13,6 +13,6 @@ public class TransitionAnim : MonoBehaviour
 
     public void playSfxSnow()
     {
-        //Singleton.instance.playSFX(sfxWhoosh,transform,false);
+        Singleton.instance.playSFX(Singleton.instance.sfxSnowTransition,transform,false);
     }
 }

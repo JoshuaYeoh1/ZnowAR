@@ -41,6 +41,7 @@ public class Player : MonoBehaviour
         iframe=true;
         gameObject.layer=0;
         StartCoroutine(dieAnim());
+        Singleton.instance.playSFX(Singleton.instance.sfxUiLose, transform, false);
     }
 
     IEnumerator hurtAnim()
