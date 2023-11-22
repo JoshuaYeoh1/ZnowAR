@@ -175,7 +175,7 @@ MonoBehaviour:
   lookSpeed: 5
   stayTimeMin: 3
   stayTimeMax: 5
-  rangeMin: 1.25
+  rangeMin: 1.45
   rangeMax: 1.5
   wanderRange: 5
   chase: 0

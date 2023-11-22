@@ -58,7 +58,9 @@ public class SceneScript : MonoBehaviour
 
                 Vector3 spawnPos = new Vector3(player.transform.position.x+offsetX, player.transform.position.y+offsetY, player.transform.position.z+offsetZ);
                 
-                Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+                GameObject spawnedEnemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+
+                Singleton.instance.playSFX(Singleton.instance.sfxEnemySpawn, spawnedEnemy.transform);
             }
         }
     }

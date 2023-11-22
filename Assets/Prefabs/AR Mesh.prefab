@@ -135,6 +135,7 @@ MonoBehaviour:
   minVertsForSpawn: 30
   spawnLikelyHood: 33
   ignoreGround: 0
+  spawnSfx: 1
 --- !u!114 &-5273442874158765593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,6 +153,7 @@ MonoBehaviour:
   minVertsForSpawn: 1
   spawnLikelyHood: 100
   ignoreGround: 0
+  spawnSfx: 0
 --- !u!114 &6891583375259448139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169,3 +171,4 @@ MonoBehaviour:
   minVertsForSpawn: 1
   spawnLikelyHood: 50
   ignoreGround: 1
+  spawnSfx: 0

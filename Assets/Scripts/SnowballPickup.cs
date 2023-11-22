@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
@@ -56,6 +57,8 @@ public class SnowballPickup : MonoBehaviour
             canPickup=false;
 
             StartCoroutine(pickingUp());
+
+            Singleton.instance.playSFX(Singleton.instance.sfxSnowballPickup, transform);
         }
     }
     IEnumerator pickingUp()

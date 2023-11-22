@@ -7,12 +7,12 @@ using Random = UnityEngine.Random;
 public class SpawnOnARMesh : MonoBehaviour
 {
     MeshAnalyser meshAnalyser;
-    Mesh arMesh; 
+    Mesh arMesh;
     public List<GameObject> spawnObjects = new List<GameObject>();
     
     public float minVertsForSpawn;
     public int spawnLikelyHood = 33;
-    public bool ignoreGround;
+    public bool ignoreGround, spawnSfx;
 
     void Start()
     {
@@ -53,7 +53,7 @@ public class SpawnOnARMesh : MonoBehaviour
 
         LeanTween.scale(spawned, defScale, Random.Range(.5f, 1)).setEaseOutBack();
 
-        Singleton.instance.playSFX(Singleton.instance.sfxPropSpawn, spawned.transform);
+        if(spawnSfx) Singleton.instance.playSFX(Singleton.instance.sfxPropSpawn, spawned.transform);
     }
 
     Vector3 GetRandomVector()
