@@ -49,7 +49,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
 --- !u!33 &6989611079791121943
@@ -118,7 +118,6 @@ MonoBehaviour:
   avgNormal: 0
   minVerts: 10
   isGround: 0
-  groundMaterial: {fileID: 2100000, guid: 4489b7ddeb14a47ac9f12d74bfad8d12, type: 2}
 --- !u!114 &-4322430223095565126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,11 +130,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b3f815f6613afd4db3e54c06e107d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minVertsForSpawn: 30
-  minRangeFromPlayer: 1
   spawnObjects:
   - {fileID: 6393777048824257983, guid: c253a10a626627d47bf48a983f0f0e20, type: 3}
-  spawnLikelyHood: 50
+  minVertsForSpawn: 30
+  spawnLikelyHood: 33
   ignoreGround: 0
 --- !u!114 &-5273442874158765593
 MonoBehaviour:
@@ -149,10 +147,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b3f815f6613afd4db3e54c06e107d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minVertsForSpawn: 1
-  minRangeFromPlayer: 0.5
   spawnObjects:
   - {fileID: 8787246005411230241, guid: 8cf67692203592c49a78d86949668025, type: 3}
+  minVertsForSpawn: 1
   spawnLikelyHood: 100
   ignoreGround: 0
 --- !u!114 &6891583375259448139
@@ -167,9 +164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b3f815f6613afd4db3e54c06e107d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minVertsForSpawn: 1
-  minRangeFromPlayer: 0.5
   spawnObjects:
   - {fileID: 2644626583104067039, guid: ed4976a1ffa678b46b67631115c81db5, type: 3}
+  minVertsForSpawn: 1
   spawnLikelyHood: 50
   ignoreGround: 1

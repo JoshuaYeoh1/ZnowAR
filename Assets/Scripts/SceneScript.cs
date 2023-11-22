@@ -5,8 +5,9 @@ using UnityEngine;
 public class SceneScript : MonoBehaviour
 {
     GameObject player;
-    public int maxSnowballs=20, snowballCount;
+    public int maxSnowballs=20;
     public List<GameObject> snowballSpawnerList = new List<GameObject>();
+    public List<GameObject> snowballList = new List<GameObject>();
     
     public GameObject enemyPrefab;
     public List<GameObject> enemyList = new List<GameObject>();
@@ -32,7 +33,7 @@ public class SceneScript : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(.5f,1f));
 
-            if(snowballCount<maxSnowballs && snowballSpawnerList.Count>0 && gameStart)
+            if(snowballList.Count<maxSnowballs && snowballSpawnerList.Count>0 && gameStart)
             snowballSpawnerList[Random.Range(0,snowballSpawnerList.Count)].GetComponent<SnowballSpawner>().spawnSnowball();
         }
     }
@@ -57,9 +58,7 @@ public class SceneScript : MonoBehaviour
 
                 Vector3 spawnPos = new Vector3(player.transform.position.x+offsetX, player.transform.position.y+offsetY, player.transform.position.z+offsetZ);
                 
-                GameObject enemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
-
-                enemyList.Add(enemy);
+                Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
             }
         }
     }

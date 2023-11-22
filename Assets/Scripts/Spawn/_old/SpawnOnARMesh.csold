@@ -6,18 +6,22 @@ using Random = UnityEngine.Random;
 
 public class SpawnOnARMesh : MonoBehaviour
 {
+    GameObject player;
     MeshAnalyser meshAnalyser;
     Mesh arMesh; 
+
+    public float minVertsForSpawn, minRangeFromPlayer=2;
+
     public List<GameObject> spawnObjects = new List<GameObject>();
-    
-    public float minVertsForSpawn;
     public int spawnLikelyHood = 33;
     public bool ignoreGround;
+    bool spawned;
 
     void Start()
     {
-        if(spawnLikelyHood == 0) return;
+        player = GameObject.FindGameObjectWithTag("Player");
 
+        if(spawnLikelyHood == 0) return;
         meshAnalyser = GetComponent<MeshAnalyser>();
         meshAnalyser.analysisDone += StartSpawning;
     }
@@ -27,17 +31,32 @@ public class SpawnOnARMesh : MonoBehaviour
         arMesh = GetComponent<MeshFilter>().sharedMesh;
 
         int spawnLikely =  Random.Range(0, 100 / spawnLikelyHood);
-        Debug.Log("Spawnlikely => " + spawnLikely);
 
         if (spawnLikely != 0) return;
 
         if (arMesh.vertexCount > minVertsForSpawn)
         {
             if(ignoreGround || meshAnalyser.IsGround)
-            InstantiateObject(GetRandomObject());
+            {
+                StartCoroutine(pendingSpawn());
+            }
         }
-        
     }
+
+    IEnumerator pendingSpawn()
+    {
+        while(!spawned)
+        {
+            yield return new WaitForSeconds(.2f);
+
+            if(Vector3.Distance(player.transform.position, transform.position)>minRangeFromPlayer)
+            {
+                spawned=true;
+                InstantiateObject(GetRandomObject());
+            }
+        }
+    }
+
     GameObject GetRandomObject()
     {
         return spawnObjects[Random.Range(0, spawnObjects.Count)];

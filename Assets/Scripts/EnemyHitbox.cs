@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class EnemyHitbox : MonoBehaviour
 {
-    public float dmg=5;
+    public float dmg=10;
 
     void OnTriggerEnter(Collider other)
     {
         if(other.tag=="Player")
         {
-            other.GetComponent<Player>().hit(5);
+            other.GetComponent<Player>().hit(dmg);
         }
     }
 }

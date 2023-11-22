@@ -49,6 +49,8 @@ public class Enemy : MonoBehaviour
         hpBar = Instantiate(hpBarPrefab,hpBarPos.position,Quaternion.identity).GetComponent<HPBar>();
         hp.hpBarFill=hpBar.hpBarFill;
         hp.hpBar=hpBar.hpBar;
+
+        scene.enemyList.Add(gameObject);
     }
 
     void spawnAnim()
@@ -235,9 +237,12 @@ public class Enemy : MonoBehaviour
 
         yield return new WaitForSeconds(.5f);
 
-        scene.enemyList.Remove(gameObject);
-
         Destroy(gameObject);
+    }
+
+    void OnDestroy()
+    {
+        scene.enemyList.Remove(gameObject);
     }
 
     void OnTriggerEnter(Collider other)

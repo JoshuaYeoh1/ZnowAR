@@ -39,6 +39,8 @@ public class ShootSnowball : MonoBehaviour
     {
         if(canShoot && snowballAmmo>0 && scene.gameStart)
         {
+            Singleton.instance.playSFX(Singleton.instance.sfxSnowballShoot, transform);
+
             snowballAmmo--;
 
             StartCoroutine(shootCooldown());

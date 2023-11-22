@@ -313,7 +313,7 @@ public class Singleton : MonoBehaviour
         transitionTo(Random.Range(0,6));
     }
 
-    // [Header("SFX")]
-    // public AudioClip[] sfxBtnClick;
-    // public AudioClip[] sfxBtnHover, sfxTween;
+    [Header("SFX")]
+    public AudioClip[] sfxSnowballShoot;
+    //public AudioClip[] sfxBtnHover, sfxTween;
 }

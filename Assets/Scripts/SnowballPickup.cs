@@ -1,17 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net;
 using UnityEngine;
 
 public class SnowballPickup : MonoBehaviour
 {
     SceneScript scene;
     ShootSnowball player;
+    SphereCollider coll;
     bool canPickup;
 
     void Awake()
     {
         scene=GameObject.FindGameObjectWithTag("Scene").GetComponent<SceneScript>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<ShootSnowball>();
+        coll = GetComponent<SphereCollider>();
+
+        scene.snowballList.Add(gameObject);
 
         StartCoroutine(spawnAnim(.5f));
     }
@@ -20,8 +25,15 @@ public class SnowballPickup : MonoBehaviour
     {
         if(Vector3.Distance(transform.position, player.transform.position)>5 && canPickup)
         {
-            destroyPickup();
+            disappear();
         }
+    }
+
+    void disappear()
+    {
+        LeanTween.scale(gameObject, Vector3.zero, .5f).setEaseInBack();
+
+        Destroy(gameObject, .5f);
     }
 
     IEnumerator spawnAnim(float time)
@@ -46,29 +58,27 @@ public class SnowballPickup : MonoBehaviour
             StartCoroutine(pickingUp());
         }
     }
-
     IEnumerator pickingUp()
     {
+        coll.enabled=false;
+
         Vector3 defScale = transform.localScale;
+
         LeanTween.scale(gameObject, defScale*1.1f, .1f).setEaseInOutSine();
         yield return new WaitForSeconds(.1f);
+
         LeanTween.scale(gameObject, defScale, .1f).setEaseInOutSine();
-
         yield return new WaitForSeconds(.1f);
-        LeanTween.move(gameObject, player.transform.position, .25f).setEaseInOutSine();
 
+        LeanTween.move(gameObject, player.transform.position, .25f).setEaseInSine();
         yield return new WaitForSeconds(.25f);
         player.snowballAmmo++;
 
-        destroyPickup();
+        Destroy(gameObject);
     }
 
-    void destroyPickup()
+    void OnDestroy()
     {
-        if(scene.snowballCount>0) scene.snowballCount--;
-
-        LeanTween.scale(gameObject, Vector3.zero, .5f).setEaseInBack();
-
-        Destroy(gameObject, .5f);
+        scene.snowballList.Remove(gameObject);
     }
 }

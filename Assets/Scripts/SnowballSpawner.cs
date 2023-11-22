@@ -15,8 +15,6 @@ public class SnowballSpawner : MonoBehaviour
 
     public void spawnSnowball()
     {
-        scene.snowballCount++;
-
         Instantiate(snowballPickup, new Vector3(transform.position.x, transform.position.y+.1f, transform.position.z), Quaternion.identity);
     }
 
